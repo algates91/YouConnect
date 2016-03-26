@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 
+import com.youconnect.bean.Account;
 import com.youconnect.bean.Member;
 
 /**
@@ -55,6 +56,19 @@ public class MemberDAO {
 		}
 	}
 
+	public Integer validateLogin(Member member){
+
+		SqlSession session = sqlSessionFactory.openSession();
+		int count=0;
+		try {
+			 count= Integer.parseInt((String) session.selectOne("Member.getLogin",member));
+			return count;
+		} finally {
+			session.close();
+		}
+	}
+	
+	
 	/**
 	 * Updates an instance of Contact in the database.
 	 * @param contact the instance to be updated.
@@ -72,7 +86,7 @@ public class MemberDAO {
 	}
 
 	/**
-	 * Insert an instance of Contact into the database.
+	 * Insert an instance of Member into the database.
 	 * @param contact the instance to be persisted.
 	 */
 	public void insert(Member member){
@@ -87,6 +101,21 @@ public class MemberDAO {
 		}
 	}
 
+	/**
+	 * Insert an instance of Account into the database.
+	 * @param contact the instance to be persisted.
+	 */
+	public void insertAccout(Account acct){
+
+		SqlSession session = sqlSessionFactory.openSession();
+		
+		try {
+			session.insert("Member.insertaccout", acct);
+			session.commit();
+		} finally {
+			session.close();
+		}
+	}
 	/**
 	 * Delete an instance of Contact from the database.
 	 * @param id primary key value of the instance to be deleted.

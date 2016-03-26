@@ -7,6 +7,7 @@
 
 	<typeAliases>
 		<typeAlias alias="Member" type="com.youconnect.bean.Member"/>
+		<typeAlias alias="Account" type="com.youconnect.bean.Account"/>
 	</typeAliases>
 	
 	<environments default="development">
@@ -23,6 +24,7 @@
 	
     <mappers>
   	   <mapper resource="com/youconnect/data/Member.xml"/>
+  	   <mapper resource="com/youconnect/data/Accounts.xml"/>
     </mappers>
 
 </configuration>

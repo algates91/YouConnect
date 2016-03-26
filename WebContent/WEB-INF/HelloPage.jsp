@@ -15,9 +15,12 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
   
   <script>
-  $(document).ready(function() {
-    $("#memberDOB").datepicker();
-  });
+  window.addEvent('load', function() {
+		new DatePicker('.memberDOB', {
+			pickerClass: 'datepicker_dashboard',
+			allowEmpty: true
+		});
+	});
   </script>
 
 
@@ -98,7 +101,7 @@
 	<br>
 	  <div class="row">
       <label for="user_job_title">Date of Birth</label><br>
-	  <input type="text" id="memberDOB" name="memberDOB">
+	  <input name='memberDOB' type='text' value='' class='date demo_allow_empty' />
       <span class="yj-error-container"></span>
     </div>
 	<br>
@@ -123,7 +126,7 @@
     <div class="side-col" role="complementary">
 	  <h3 role="heading" aria-level="2">Already have an account?</h3>
 	  <p>
-      <a href="/session/new">Log In</a><span> or</span><br />
+      <a href="/YouConnect-SocialNetworking/login">Log In</a><span> or</span><br />
       <a href="/forgotten_password/new">Reset your password</a>
 	  </p>
 </div>

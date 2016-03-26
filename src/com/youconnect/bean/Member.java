@@ -34,10 +34,13 @@ public class Member {
 		Date date =null;
 		if(memberDOB!= null && !memberDOB.isEmpty()){
 			
-			try {
-				date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S").parse(memberDOB);
-			} catch (ParseException e) {
+			SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd HH:mm");		
 				
+			try {
+
+				date = formatter.parse(memberDOB);
+
+			} catch (ParseException e) {
 				e.printStackTrace();
 			}
 		}

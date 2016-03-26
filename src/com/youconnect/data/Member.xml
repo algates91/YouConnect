@@ -20,14 +20,23 @@
     </select>
     
     <select id="getById" parameterType="int" resultMap="result">
-    	SELECT * FROM MEMBERS WHERE CONTACT_ID = #{id}
+    	SELECT * FROM MEMBERS WHERE profile_id = #{id}
   	</select>
+  
     
     <delete id="deleteById" parameterType="int">
-    	DELETE from MEMBERS WHERE CONTACT_ID = #{id};
+    	DELETE from MEMBERS WHERE profile_id = #{id};
     </delete>
 
-	    <insert id="insert" parameterType="Member">
+	    <insert id="insertaccout" parameterType="Account">
+	INSERT INTO ACCOUNTS (  email_id,        
+	passwords,       
+	account_flag ) 
+	VALUES (#{LoginId},#{passWord},
+	#{accountFlag});
+	</insert>
+	
+	<insert id="insert" parameterType="Member">
 	INSERT INTO MEMBERS (  email_id,        
 	profile_id,       
 	first_name_s,     
@@ -43,10 +52,10 @@
 	<update id="update" parameterType="Member">
 	  	UPDATE MEMBERS
 		SET
-			CONTACT_EMAIL = #{email},
-			CONTACT_NAME = #{name},
-			CONTACT_PHONE = #{phone}
-		WHERE CONTACT_ID = #{id};
+			email_id = #{emailId},
+			first_name_s = #{memberFirstName},
+			mobile_no = #{memberPhoneNumber}
+		WHERE profile_id = #{emailId};
   </update>
 
 </mapper>

@@ -24,10 +24,11 @@ public class MyBatisConnectionFactory {
 		try {
 
 			String resource = "/config/SqlMapConfig.xml";
-			Reader reader = Resources.getResourceAsReader(resource);
+			
 
 			if (sqlSessionFactory == null) {
-				sqlSessionFactory = new SqlSessionFactoryBuilder().build(reader);
+					Reader reader = Resources.getResourceAsReader(resource);
+					sqlSessionFactory = new SqlSessionFactoryBuilder().build(reader);
 			}
 		}
 
