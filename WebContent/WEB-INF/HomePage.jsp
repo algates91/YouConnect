@@ -13,14 +13,19 @@
 
 				<!-- Header -->
 					<header id="header">
-						<span class="avatar"><img src="resources/images/avatar.jpg" alt="" /></span>
+						<span class="avatar"><img src="resources/images/profilePicture.png" alt="" /></span>
 						<ul class="icons">
-							<li><a href="#" class="icon style2 fa-twitter"><span class="label">Twitter</span></a></li>
-							<li><a href="#" class="icon style2 fa-facebook"><span class="label">Facebook</span></a></li>
-							<li><a href="#" class="icon style2 fa-instagram"><span class="label">Instagram</span></a></li>
-							<li><a href="#" class="icon style2 fa-500px"><span class="label">500px</span></a></li>
-							<li><a href="#" class="icon style2 fa-envelope-o"><span class="label">Email</span></a></li>
+							<li><a href="/editprofile.html" class="fa fa-pencil-square-o"><span class="label"> View/Edit Profile</span></a></li>
+							<li><a href="#" class="fa fa-camera-retro"><span class="label"> Edit Photo</span></a></li>
+							<li><a href="#" class="fa fa-sign-out"><span class="label"> Sign Out</span></a></li>
 						</ul>
+						<form method="get" action="/YouConnect-SocialNetworking/results.html">
+							<div>
+								<input type="text" name="searchstring"/>
+								<br/>
+								<input type="submit" value="Search" />
+							</div>
+						</form>
 					</header>
 
 				<!-- Main -->
@@ -28,38 +33,26 @@
 
 						<!-- Thumbnails -->
 							<section class="thumbnails">
+							
 								<div>
-									<a href="resources/html/signup.html">
-										<img src="resources/images/thumbs/01.jpg" alt="" />
-										<h3>Lorem ipsum dolor sit amet</h3>
+									<a href="/YouConnect-SocialNetworking/home.html">
+										<img src="resources/images/groups.jpg" alt="" />
+										<h3>Groups</h3>
 									</a>
-									<a href="resources/images/fulls/02.jpg">
-										<img src="resources/images/thumbs/02.jpg" alt="" />
-										<h3>Lorem ipsum dolor sit amet</h3>
+									<a href="resources/images/fulls/03.jpg">
+										<img src="resources/images/friends.jpg" alt="" />
+										<h3>Friends</h3>
 									</a>
 								</div>
+								<div></div>
 								<div>
-									<a href="resources/images/fulls/03.jpg">
-										<img src="resources/images/thumbs/03.jpg" alt="" />
-										<h3>Lorem ipsum dolor sit amet</h3>
+									<a href="resources/images/fulls/02.jpg">
+										<img src="resources/images/forums.jpg" alt="" />
+										<h3>Forums</h3>
 									</a>
 									<a href="resources/images/fulls/04.jpg">
-										<img src="resources/images/thumbs/04.jpg" alt="" />
-										<h3>Lorem ipsum dolor sit amet</h3>
-									</a>
-									<a href="resources/images/fulls/05.jpg">
-										<img src="resources/images/thumbs/05.jpg" alt="" />
-										<h3>Lorem ipsum dolor sit amet</h3>
-									</a>
-								</div>
-								<div>
-									<a href="resources/images/fulls/06.jpg">
-										<img src="resources/images/thumbs/06.jpg" alt="" />
-										<h3>Lorem ipsum dolor sit amet</h3>
-									</a>
-									<a href="resources/images/fulls/07.jpg">
-										<img src="resources/images/thumbs/07.jpg" alt="" />
-										<h3>Lorem ipsum dolor sit amet</h3>
+										<img src="resources/images/documents.jpg" alt="" />
+										<h3>Documents</h3>
 									</a>
 								</div>
 							</section>

@@ -38,7 +38,25 @@ public class MemberDAO {
 			session.close();
 		}
 	}
-
+	
+	
+	/**
+	 * Returns the list of all Contact instances from the database.
+	 * @return the list of all Contact instances from the database.
+	 */
+	@SuppressWarnings("unchecked")
+	public List<Member> selectList(String searchQry){
+		searchQry = "%"+searchQry+"%";
+		SqlSession session = sqlSessionFactory.openSession();
+		
+		try {
+			List<Member> list = session.selectList("Member.getSearchResult",searchQry);
+			return list;
+		} finally {
+			session.close();
+		}
+	}
+	
 	/**
 	 * Returns a Contact instance from the database.
 	 * @param id primary key value used for lookup.

@@ -134,7 +134,7 @@ $("#datepicker").datepicker("option", "dateFormat", $(this).val());
     <div class="side-col" role="complementary">
 	  <h3 role="heading" aria-level="2">Already have an account?</h3>
 	  <p>
-      <a href="/session/new">Log In</a><span> or</span><br />
+      <a href="login">Log In</a><span> or</span><br />
       <a href="/forgotten_password/new">Reset your password</a>
 	  </p>
 </div>

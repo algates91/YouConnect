@@ -9,11 +9,12 @@ public class Member {
 	private String memberFirstName;
 	private String memberLastName;
 	private String passWord;
-	private Date memberDOB;
+	private Date   memberDOB;
 	private String memberGender;
 	private String memberPhoneNumber;
 	private String profileId;
 	private String emailId;
+	private String searchIdClob;
 	
 	public String getmemberFirstName() {
 		return memberFirstName;
@@ -34,11 +35,13 @@ public class Member {
 		Date date =null;
 		if(memberDOB!= null && !memberDOB.isEmpty()){
 			
-			SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd HH:mm");		
+			
 				
 			try {
 
-				date = formatter.parse(memberDOB);
+				SimpleDateFormat sd = new SimpleDateFormat("dd/MM/yy");
+				//SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd HH:MM:SS");	
+				 date = sd.parse( memberDOB );
 
 			} catch (ParseException e) {
 				e.printStackTrace();
@@ -76,6 +79,13 @@ public class Member {
 	}
 	public void setPassWord(String passWord) {
 		this.passWord = passWord;
+	}
+	public String getSearchIdClob() {
+		return searchIdClob;
+	}
+	public void setSearchIdClob(String searchClob) {
+		
+		this.searchIdClob = searchClob;
 	}
 
 	

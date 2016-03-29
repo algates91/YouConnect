@@ -36,5 +36,19 @@ public class AccountDAO {
 		}
 	}
 
+
+	public Account updatePassword(Account acct) {
+		
+		SqlSession session = sqlSessionFactory.openSession();
+		
+		try {
+			acct = (Account)session.selectOne("Accounts.update",acct);
+			return acct;
+		} finally {
+			session.close();
+		}
+		
+	}
+
 	
 }

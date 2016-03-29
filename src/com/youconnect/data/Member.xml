@@ -29,24 +29,23 @@
     </delete>
 
 	    <insert id="insertaccout" parameterType="Account">
-	INSERT INTO ACCOUNTS (  email_id,        
-	passwords,       
-	account_flag ) 
-	VALUES (#{LoginId},#{passWord},
-	#{accountFlag});
+		INSERT INTO ACCOUNTS (  email_id,        
+		passwords,       
+		account_flag ) 
+		VALUES (#{LoginId},#{passWord},
+		#{accountFlag});
 	</insert>
 	
 	<insert id="insert" parameterType="Member">
-	INSERT INTO MEMBERS (  email_id,        
-	profile_id,       
-	first_name_s,     
-	last_name_s  ,    
-	date_of_birth ,   
-	gender,           
-	mobile_no        ) 
-	VALUES (#{emailId}, "800938424", #{memberFirstName},
-	#{memberLastName}, #{memberDOB},
-	#{memberGender}, #{memberPhoneNumber});
+		INSERT INTO MEMBERS (  email_id,       
+		first_name_s,     
+		last_name_s  ,    
+		date_of_birth ,   
+		gender,           
+		mobile_no,searchClob        ) 
+		VALUES (#{emailId}, #{memberFirstName},
+		#{memberLastName}, #{memberDOB},
+		#{memberGender}, #{memberPhoneNumber}, #{searchIdClob});
 	</insert>
 
 	<update id="update" parameterType="Member">
@@ -57,5 +56,11 @@
 			mobile_no = #{memberPhoneNumber}
 		WHERE profile_id = #{emailId};
   </update>
+  
+  <select id="getSearchResult" parameterType="String" resultMap="result">
+  	
+	  	SELECT * FROM MEMBERS WHERE searchClob like #{searchQry}
+	  	 
+  </select>
 
 </mapper>
