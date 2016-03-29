@@ -25,6 +25,15 @@ public class SignUpController {
 
 		return model;
 	}
+	
+	@RequestMapping(value="/editprofile.html", method = RequestMethod.GET)
+	public ModelAndView getProfilePage(@ModelAttribute("member") Member member) {
+
+		ModelAndView model = new ModelAndView("EditProfile");
+		model.addObject("emailId", member.getEmailId());
+
+		return model;
+	}
 
 	@RequestMapping(value="/submitForm.html", method = RequestMethod.POST)
 	public ModelAndView submitAdmissionForm(@ModelAttribute("member") Member member) {

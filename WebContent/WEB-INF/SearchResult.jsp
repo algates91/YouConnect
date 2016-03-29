@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
 <!DOCTYPE HTML>
 <html>
 	<head>
@@ -13,9 +15,9 @@
 
 				<!-- Header -->
 					<header id="header">
-						<span class="avatar"><img src="resources/images/profilePicture.png" alt="" /></span>
+						<span class="avatar"><a href="homePageRedirect"><img src="resources/images/profilePicture.png" alt="" /></a></span>
 						<ul class="icons">
-							<li><a href="/YouConnect-SocialNetworking/editprofile.html" class="fa fa-pencil-square-o"><span class="label"> View/Edit Profile</span></a></li>
+							<li><a href="/editprofile.html" class="fa fa-pencil-square-o"><span class="label"> View/Edit Profile</span></a></li>
 							<li><a href="#" class="fa fa-camera-retro"><span class="label"> Edit Photo</span></a></li>
 							<li><a href="#" class="fa fa-sign-out"><span class="label"> Sign Out</span></a></li>
 						</ul>
@@ -31,31 +33,9 @@
 				<!-- Main -->
 					<section id="main">
 
-						<!-- Thumbnails -->
-							<section class="thumbnails">
-							
-								<div>
-									<a href="/YouConnect-SocialNetworking/home.html">
-										<img src="resources/images/groups.jpg" alt="" />
-										<h3>Groups</h3>
-									</a>
-									<a href="resources/images/fulls/03.jpg">
-										<img src="resources/images/friends.jpg" alt="" />
-										<h3>Friends</h3>
-									</a>
-								</div>
-								<div></div>
-								<div>
-									<a href="resources/images/fulls/02.jpg">
-										<img src="resources/images/forums.jpg" alt="" />
-										<h3>Forums</h3>
-									</a>
-									<a href="resources/images/fulls/04.jpg">
-										<img src="resources/images/documents.jpg" alt="" />
-										<h3>Documents</h3>
-									</a>
-								</div>
-							</section>
+							<h2>Details submitted by you: </h2>
+	
+							${count}
 
 					</section>
 
