@@ -49,11 +49,11 @@ public class SignUpController {
 	}
 	
 	@RequestMapping(value="/submitLogin", method = RequestMethod.POST)
-	public ModelAndView submitLoginForm(@ModelAttribute("acct") Account acct,HttpServletRequest hp) {
+	public ModelAndView submitLoginForm(@ModelAttribute("acct") Account acct, HttpSession ses) {
 		ModelAndView model=null;
 		try{
-		
-		hp.setAttribute("emailId", acct.getLoginId());
+			ses.setAttribute("emailId", acct.getLoginId());
+			//ses.setAttribute("name", member.getmemberFirstName()+" "+ member.getMemberLastName());
 		AccountDAO ad = new AccountDAO();
 		
 		acct = ad.selectLogin(acct);

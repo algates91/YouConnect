@@ -25,12 +25,13 @@ public class ProfileController {
 
 
 	@RequestMapping(value="/viewProfile", method = RequestMethod.GET)
-	public ModelAndView getProfile(Member member, HttpServletRequest request) {
+	public ModelAndView getProfile(Member member, HttpServletRequest request,HttpSession ses) {
 		
 		String emailId = request.getParameter("emailId");
 		AccountDesc acctDesc = new AccountDesc();
 		acctDesc.setEmailId(member.getEmailId());
 		acctDesc.setFriendId(emailId);
+		String emailIdSelf= (String)ses.getAttribute("emailId");
 		MemberDAO md = new MemberDAO();
 		AccountDescDAO ad = new AccountDescDAO();
 		member =md.selectById(emailId);
