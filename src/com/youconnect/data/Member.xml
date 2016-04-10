@@ -19,8 +19,8 @@
     	SELECT * FROM MEMBERS 
     </select>
     
-    <select id="getById" parameterType="int" resultMap="result">
-    	SELECT * FROM MEMBERS WHERE profile_id = #{id}
+    <select id="getById" parameterType="String" resultMap="result">
+    	SELECT * FROM MEMBERS WHERE email_id = #{id}
   	</select>
   
     

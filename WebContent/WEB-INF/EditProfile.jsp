@@ -107,8 +107,8 @@ $("#datepicker").datepicker("option", "dateFormat", $(this).val());
 	<!-- </div> -->
 	<!-- </div> -->
 
-<script src="${pageContext.request.contextPath}/static/libs/jquery.validate.min.js"></script>
-<script src="${pageContext.request.contextPath}/static/js/profile-edit-validation-rules.js"></script>
+<%-- <script src="${pageContext.request.contextPath}/static/libs/jquery.validate.min.js"></script>
+<script src="${pageContext.request.contextPath}/static/js/profile-edit-validation-rules.js"></script> --%>
 
 </body>
 </html>

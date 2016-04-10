@@ -1,9 +1,14 @@
 package com.youconnect.controller;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.youconnect.bean.Account;
@@ -13,9 +18,8 @@ import com.youconnect.dao.MemberDAO;
 
 
 @Controller
+@SessionAttributes("Member")
 public class SignUpController {
-	
-	
 
 
 	@RequestMapping(value="/welcome.html", method = RequestMethod.GET)
@@ -26,22 +30,16 @@ public class SignUpController {
 		return model;
 	}
 	
-	@RequestMapping(value="/editprofile.html", method = RequestMethod.GET)
-	public ModelAndView getProfilePage(@ModelAttribute("member") Member member) {
-
-		ModelAndView model = new ModelAndView("EditProfile");
-		model.addObject("emailId", member.getEmailId());
-
-		return model;
-	}
+	
 
 	@RequestMapping(value="/submitForm.html", method = RequestMethod.POST)
-	public ModelAndView submitAdmissionForm(@ModelAttribute("member") Member member) {
+	public ModelAndView submitAdmissionForm(@ModelAttribute("member") Member member, HttpSession ses) {
 		
 		member.setSearchIdClob(member.getmemberFirstName()+"|"+member.getMemberLastName()+"|"+member.getEmailId().split("@")[0]);
 		
 		Account acct=populateAccountBean(member);
-
+		ses.setAttribute("emailId", member.getEmailId());
+		ses.setAttribute("name", member.getmemberFirstName()+" "+ member.getMemberLastName());
 		MemberDAO md = new MemberDAO();
 		md.insert(member);
 		md.insertAccout(acct);
@@ -51,12 +49,11 @@ public class SignUpController {
 	}
 	
 	@RequestMapping(value="/submitLogin", method = RequestMethod.POST)
-	public ModelAndView submitLoginForm(@ModelAttribute("acct") Account acct) {
+	public ModelAndView submitLoginForm(@ModelAttribute("acct") Account acct,HttpServletRequest hp) {
 		ModelAndView model=null;
 		try{
 		
-	
-
+		hp.setAttribute("emailId", acct.getLoginId());
 		AccountDAO ad = new AccountDAO();
 		
 		acct = ad.selectLogin(acct);

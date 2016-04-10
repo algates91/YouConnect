@@ -58,11 +58,11 @@ public class MemberDAO {
 	}
 	
 	/**
-	 * Returns a Contact instance from the database.
+	 * Returns a Member instance from the database.
 	 * @param id primary key value used for lookup.
-	 * @return A Contact instance with a primary key value equals to pk. null if there is no matching row.
+	 * @return A Member instance with a primary key value equals to pk. null if there is no matching row.
 	 */
-	public Member selectById(int id){
+	public Member selectById(String id){
 
 		SqlSession session = sqlSessionFactory.openSession();
 		

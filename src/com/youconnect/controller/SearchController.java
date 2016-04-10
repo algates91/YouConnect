@@ -10,12 +10,14 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.youconnect.bean.Member;
 import com.youconnect.dao.MemberDAO;
 
 @Controller
+
 public class SearchController {
 	
 	@RequestMapping(value="/results.html", method = RequestMethod.GET)
@@ -33,7 +35,7 @@ public class SearchController {
 				sb.append("<td>"+ Integer.toString(count)+"</td>");
 				
 				sb.append("<td> ") ;
-				sb.append("<a href="+"/viewProfile?emailId="+m.getEmailId()+">");
+				sb.append("<a href="+"/YouConnect-SocialNetworking/viewProfile?emailId="+m.getEmailId()+">");
 				sb.append(m.getMemberLastName()+", "+m.getmemberFirstName());	
 				sb.append("</a>");
 				sb.append(("</td>"));
