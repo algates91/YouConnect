@@ -45,12 +45,11 @@ public class MemberDAO {
 	 * @return the list of all Contact instances from the database.
 	 */
 	@SuppressWarnings("unchecked")
-	public List<Member> selectList(String searchQry){
-		searchQry = "%"+searchQry+"%";
+	public List<Member> selectList(Member member){
 		SqlSession session = sqlSessionFactory.openSession();
 		
 		try {
-			List<Member> list = session.selectList("Member.getSearchResult",searchQry);
+			List<Member> list = session.selectList("Member.getSearchResult",member);
 			return list;
 		} finally {
 			session.close();

@@ -17,43 +17,39 @@
 						<ul class="icons">
 							
 						</ul>
+												
+						${displayContent}
 					</header>
 	<form accept-charset="UTF-8" >
 				<br>
   				<br>
  				<div class="row">
-      				<label for="user_last_name">Email Id*</label><br>
-      				<input aria-required="true" class="yj-validate last-name required wider pw-validate" id="emailId" name="emailId" size="30" type="text"   readonly/>
+      				<label for="user_last_name">Email Id* :</label><h2> ${member.emailId }</h2>
       				<span class="yj-error-container"></span>
     			</div>
 				<br>
 				<div class="row">
-      				<label for="user_first_name">First Name*</label><br>
-      				<input aria-required="true" class="yj-validate first-name required initial-focus wider" id="memberFirstName" name="memberFirstName" size="30" type="text" readonly/>
+      				<label for="user_first_name">First Name* :</label> <h2>${member.memberFirstName }</h2>
       				<span class="yj-error-container"></span>
 	  			</div>
 	  			<br>
 	  			<div class="row">
-     				<label for="user_last_name">Last Name*</label><br>
-      				<input aria-required="true" class="yj-validate last-name required wider pw-validate" id="memberLastName" name="memberLastName" size="30" type="text" readonly/>
+     				<label for="user_last_name">Last Name*:</label> <h2>${member.memberLastName }</h2>
       				<span class="yj-error-container"></span>
     			</div>
 				<br>
     			<div class="row">
-      				<label for="user_job_title">Gender</label><br>
-      				<input autocomplete="off" class="job-title wider pw-validate" id="memberGender" name="memberGender" size="30" type="text" readonly/>
+      				<label for="user_job_title">Gender:</label> <h2>${member.memberGender }</h2>
       				<span class="yj-error-container"></span>
     			</div>
 				<br>
 	  			<div class="row">
-      				<label for="user_job_title">Date of Birth</label><br>
-	  				<input type="text" name="memberDOB" id="datepicker" readonly/>
+      				<label for="user_job_title">Date of Birth:</label> <h2>${member.memberDOB }</h2>
       				<span class="yj-error-container"></span>
     			</div>
 				<br>
 				<div class="row">
-      				<label for="user_job_title">Phone Number</label><br>
-      				<input autocomplete="off" class="job-title wider pw-validate" id="memberPhoneNumber" name="memberPhoneNumber" size="30" type="text" readonly/>
+      				<label for="user_job_title">Phone Number:</label><h2> ${member.memberPhoneNumber }</h2>
       				<span class="yj-error-container"></span>
     			</div>
 				<br>

@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,12 +22,13 @@ import com.youconnect.dao.MemberDAO;
 public class SearchController {
 	
 	@RequestMapping(value="/results.html", method = RequestMethod.GET)
-	public ModelAndView getSearch(HttpServletRequest request) {
+	public ModelAndView getSearch(HttpServletRequest request, Member member, HttpSession ses) {
 		StringBuffer sb= new StringBuffer();
 		MemberDAO md = new MemberDAO();
-		String searchStr = request.getParameter("searchstring");
+		member.setSearchString(request.getParameter("searchstring"));
+		member.setEmailId((String)ses.getAttribute("emailId"));
 		
-		List<Member> al =md.selectList(searchStr);
+		List<Member> al =md.selectList(member);
 		int count=1;
 		sb.append("<table>");
 		for(Member m: al){

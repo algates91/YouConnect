@@ -57,9 +57,9 @@
 		WHERE profile_id = #{emailId};
   </update>
   
-  <select id="getSearchResult" parameterType="String" resultMap="result">
+  <select id="getSearchResult" parameterType="Member" resultMap="result">
   	
-	  	SELECT * FROM MEMBERS WHERE searchClob like #{searchQry}
+	  	SELECT * FROM MEMBERS WHERE searchClob like #{searchString} and email_id !=#{emailId} ;
 	  	 
   </select>
 

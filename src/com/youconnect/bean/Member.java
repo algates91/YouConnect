@@ -15,7 +15,14 @@ public class Member {
 	private String profileId;
 	private String emailId;
 	private String searchIdClob;
+	private String searchString;
 	
+	public String getSearchString() {
+		return searchString;
+	}
+	public void setSearchString(String searchString) {
+		this.searchString = "%"+searchString+"%";;
+	}
 	public String getmemberFirstName() {
 		return memberFirstName;
 	}

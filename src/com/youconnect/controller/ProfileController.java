@@ -27,18 +27,67 @@ public class ProfileController {
 	@RequestMapping(value="/viewProfile", method = RequestMethod.GET)
 	public ModelAndView getProfile(Member member, HttpServletRequest request,HttpSession ses) {
 		
-		String emailId = request.getParameter("emailId");
+		String emailId = request.getParameter("emailId")==null?(String)ses.getAttribute("friendsemailId"):request.getParameter("emailId");
+		StringBuffer displayContent = new StringBuffer();
 		AccountDesc acctDesc = new AccountDesc();
-		acctDesc.setEmailId(member.getEmailId());
+		acctDesc.setEmailId((String)ses.getAttribute("emailId"));
 		acctDesc.setFriendId(emailId);
-		String emailIdSelf= (String)ses.getAttribute("emailId");
 		MemberDAO md = new MemberDAO();
 		AccountDescDAO ad = new AccountDescDAO();
 		member =md.selectById(emailId);
-		 acctDesc = ad.selectByIds(acctDesc);
-		
-		 ModelAndView model = new ModelAndView("ViewProfile");
-		//emailId=emailId;
+		acctDesc = ad.selectByIds(acctDesc);
+		ses.setAttribute("friendsemailId", emailId);
+		if(acctDesc!=null ){
+			if(acctDesc.getSelfFlag()==1 && acctDesc.getFriendsFlag()==0){
+				
+				displayContent.append("<form method=\"get\" action=\"#\">") ;
+				
+				displayContent.append("<input type=\"submit\" value=\"Request Pending\" disabled/>");
+				
+				displayContent.append("<form/>");
+				
+				
+			}
+			else if(acctDesc.getSelfFlag()==1 && acctDesc.getFriendsFlag()==1){
+				
+				displayContent.append("<form method=\"get\" action=\"/YouConnect-SocialNetworking/unfriend\">") ;
+				
+				displayContent.append("<input type=\"submit\" value=\"UnFriends\" />") ;
+				
+				displayContent.append("</form>");
+				
+				
+			}
+			else if(acctDesc.getSelfFlag()==0 && acctDesc.getFriendsFlag()==1){
+				
+				displayContent.append("<form method=\"get\" action=\"/YouConnect-SocialNetworking/accept\">") ;
+				
+				displayContent.append("<input type=\"submit\" value=\"Accept\" />") ;
+				
+				displayContent.append("</form> ");
+				
+				displayContent.append("<form method=\"get\" action=\"/YouConnect-SocialNetworking/reject\">") ;
+				
+				displayContent.append("<input type=\"submit\" value=\"Reject\" />") ;
+				
+				displayContent.append("</form>");
+				
+				
+			}
+		}
+		else{
+			displayContent.append("<form method=\"get\" action=\"/YouConnect-SocialNetworking/addasfriend\">") ;
+			
+			displayContent.append("<input type=\"submit\" value=\"Add as a Friend\" />") ;
+			
+			displayContent.append("</form>");
+			
+			
+		}
+		ModelAndView model = new ModelAndView("ViewFriendProfile");
+		model.addObject("displayContent", displayContent.toString());
+		model.addObject("member",member);
+		model.addObject("acctDesc",acctDesc);
 		return model;
 	}
 
@@ -51,6 +100,68 @@ public class ProfileController {
 		return model;
 	}
 
+	@RequestMapping(value="/addasfriend", method = RequestMethod.GET)
+	public ModelAndView addFriends(@ModelAttribute("acctDesc") AccountDesc acctDesc, HttpSession ses) {
+		
+		AccountDescDAO ad = new AccountDescDAO();
+		acctDesc.setSelfFlag(1);
+		acctDesc.setFriendsFlag(0);
+		acctDesc.setFriendId((String)ses.getAttribute("friendsemailId"));
+		acctDesc.setEmailId((String) ses.getAttribute("emailId"));
+		ad.insertAccoutDesc(acctDesc);
+		acctDesc.setSelfFlag(0);
+		acctDesc.setFriendsFlag(1);
+		acctDesc.setFriendId((String) ses.getAttribute("emailId"));
+		acctDesc.setEmailId((String)ses.getAttribute("friendsemailId"));
+		ad.insertAccoutDesc(acctDesc);
+		//ses.removeAttribute("friendsemailId");
+		return new ModelAndView("redirect:" + "/viewProfile");
+	}
 	
+	@RequestMapping(value="/accept", method = RequestMethod.GET)
+	public ModelAndView acceptFriends(@ModelAttribute("acctDesc") AccountDesc acctDesc, HttpSession ses) {
+		
+		AccountDescDAO ad = new AccountDescDAO();
+		acctDesc.setSelfFlag(1);
+		acctDesc.setFriendsFlag(1);
+		acctDesc.setFriendId((String)ses.getAttribute("friendsemailId"));
+		acctDesc.setEmailId((String) ses.getAttribute("emailId"));
+		ad.updateAccoutDesc(acctDesc);
+		acctDesc.setSelfFlag(1);
+		acctDesc.setFriendsFlag(1);
+		acctDesc.setFriendId((String) ses.getAttribute("emailId"));
+		acctDesc.setEmailId((String)ses.getAttribute("friendsemailId"));
+		ad.updateAccoutDesc(acctDesc);
+		//ses.removeAttribute("friendsemailId");
+		return new ModelAndView("redirect:" + "/viewProfile");
+	}
+	
+	@RequestMapping(value="/reject", method = RequestMethod.GET)
+	public ModelAndView rejectFriends(@ModelAttribute("acctDesc") AccountDesc acctDesc, HttpSession ses) {
+		
+		AccountDescDAO ad = new AccountDescDAO();
+		acctDesc.setFriendId((String)ses.getAttribute("friendsemailId"));
+		acctDesc.setEmailId((String) ses.getAttribute("emailId"));
+		ad.delete(acctDesc);
+		acctDesc.setFriendId((String) ses.getAttribute("emailId"));
+		acctDesc.setEmailId((String)ses.getAttribute("friendsemailId"));
+		ad.delete(acctDesc);
+		//ses.removeAttribute("friendsemailId");
+		return new ModelAndView("redirect:" + "/viewProfile");
+	}
+	
+	@RequestMapping(value="/unfriend", method = RequestMethod.GET)
+	public ModelAndView unFriends(@ModelAttribute("acctDesc") AccountDesc acctDesc, HttpSession ses) {
+		
+		AccountDescDAO ad = new AccountDescDAO();
+		acctDesc.setFriendId((String)ses.getAttribute("friendsemailId"));
+		acctDesc.setEmailId((String) ses.getAttribute("emailId"));
+		ad.delete(acctDesc);
+		acctDesc.setFriendId((String) ses.getAttribute("emailId"));
+		acctDesc.setEmailId((String)ses.getAttribute("friendsemailId"));
+		ad.delete(acctDesc);
+		//ses.removeAttribute("friendsemailId");
+		return new ModelAndView("redirect:" + "/viewProfile");
+	}
 	
 }
