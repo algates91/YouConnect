@@ -22,7 +22,7 @@ import com.youconnect.dao.MemberDAO;
 public class SignUpController {
 
 
-	@RequestMapping(value="/welcome.html", method = RequestMethod.GET)
+	@RequestMapping(value="/", method = RequestMethod.GET)
 	public ModelAndView getWelcomePage() {
 
 		ModelAndView model = new ModelAndView("SignUp");
@@ -32,7 +32,7 @@ public class SignUpController {
 	
 	
 
-	@RequestMapping(value="/submitForm.html", method = RequestMethod.POST)
+	@RequestMapping(value="/submitForm", method = RequestMethod.POST)
 	public ModelAndView submitAdmissionForm(@ModelAttribute("member") Member member, HttpSession ses) {
 		
 		member.setSearchIdClob(member.getmemberFirstName()+"|"+member.getMemberLastName()+"|"+member.getEmailId().split("@")[0]);

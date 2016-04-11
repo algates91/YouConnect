@@ -2,6 +2,20 @@ package com.youconnect.bean;
 
 public class AccountDesc {
 	private int descId;
+	private String firstName;
+	private String lastName;
+	public String getFirstName() {
+		return firstName;
+	}
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+	public String getLastName() {
+		return lastName;
+	}
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
 	private String emailId;
 	private String friendId;
 	private int groupId;

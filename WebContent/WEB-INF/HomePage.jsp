@@ -39,7 +39,7 @@
 										<img src="resources/images/groups.jpg" alt="" />
 										<h3>Groups</h3>
 									</a>
-									<a href="resources/images/fulls/03.jpg">
+									<a href="/YouConnect-SocialNetworking/viewFriends">
 										<img src="resources/images/friends.jpg" alt="" />
 										<h3>Friends</h3>
 									</a>
@@ -59,10 +59,11 @@
 
 					</section>
 
-				<!-- Footer -->
-					<footer id="footer">
-						<p>&copy; Untitled. All rights reserved. Design: <a href="http://templated.co">TEMPLATED</a>. Demo Images: <a href="http://unsplash.com">Unsplash</a>.</p>
-					</footer>
+			<footer class="global-footer" role="contentinfo">
+			  <div class="container">
+			    <img id="corporate-logo" src="https://epic.uncc.edu/sites/epic.uncc.edu/files/media/UNCC.jpg" alt="UNCC" width="1000" height="100">
+			  </div>
+			</footer>
 
 			</div>
 

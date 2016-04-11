@@ -1,70 +1,67 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>YouConnect</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link rel="stylesheet" href="resources/css/main.css" />
 
-
-<!DOCTYPE html>
-<html lang="en-US" dir="ltr">
-  <head>
-
-    
-    <title>YouConnect
-      : Sign Up
-    </title>
-
-	<meta name="robots" content="noindex, nofollow"/>
-<!------------ Including jQuery Date UI with CSS -------------->
-<script src="http://code.jquery.com/jquery-1.10.2.js"></script>
-<script src="http://code.jquery.com/ui/1.11.0/jquery-ui.js"></script>
-<link rel="stylesheet" href="http://code.jquery.com/ui/1.11.0/themes/smoothness/jquery-ui.css">
-<!-- jQuery Code executes on Date Format option ----->
-<script src="js/script.js"></script>
-<link rel="stylesheet" href="resources/css/style.css">
-
+<!------------ Including jQuery Date UI with CSS --------------> 
+ <script src="http://code.jquery.com/ui/1.11.0/jquery-ui.js"></script> 
+ <link rel="stylesheet" href="http://code.jquery.com/ui/1.11.0/themes/smoothness/jquery-ui.css"> 
+ <!-- jQuery Code executes on Date Format option -----> 
+ <script src="js/script.js"></script>  
   
-  <script>
-  $(document).ready(function() {
-// Datepicker Popups calender to Choose date.
-$(function() {
-$("#datepicker").datepicker();
-// Pass the user selected date format.
-$("#format").change(function() {
-$("#datepicker").datepicker("option", "dateFormat", $(this).val());
-});
-});
-});
-  </script>
+    
+   <script> 
+   $(document).ready(function() { 
+ // Datepicker Popups calender to Choose date. 
+ $(function() { 
+ $("#datepicker").datepicker(); 
+ // Pass the user selected date format. 
+ $("#format").change(function() { 
+ $("#datepicker").datepicker("option", "dateFormat", $(this).val()); 
+ }); 
+ }); 
+ }); 
+   </script> 
+  
 
-
-
-	<link href="https://s0.assets-yammer.com/assets/resources/yam-application-7c3e2c0eadd794a4e9033e558ba59c76.css" media="screen, projection, print" rel="stylesheet" type="text/css" />
-
-<link href="https://s0.assets-yammer.com/assets/resources/yam-yamkit-ng-20dc3db842399d4842acc796b0b83b41.css" media="screen, projection, print" rel="stylesheet" type="text/css" />
-
-<link href="https://s0.assets-yammer.com/assets/resources/yam-feeds-e4dd05000c5e4c20f6c0b5e95356a86e.css" media="screen, projection, print" rel="stylesheet" type="text/css" />
-<link href="https://s0.assets-yammer.com/assets/resources/yam-common-ui-fbe11afcd4a9a5daa8f4658b5cb4be57.css" media="screen, projection, print" rel="stylesheet" type="text/css" />
-<link href="https://s0.assets-yammer.com/assets/resources/yam-workfeed-app-a0a4e1932aaba50d2f3ae5443bcf3759.css" media="screen, projection, print" rel="stylesheet" type="text/css" />
-
-  <link href="https://s0.assets-yammer.com/assets/resources/yam-pages-ad5e5eb86809ef5ea82aa7f045a4525d.css" media="screen, projection, print" rel="stylesheet" type="text/css" />
-
-<link href="https://s0.assets-yammer.com/assets/yam-requirejs-complete-302ee9e92e848c68219b749b338eac39.css" media="screen" rel="stylesheet" type="text/css" />
-
-  <link href="https://s0.assets-yammer.com/assets/resources/yam-signup-f77683ce25f316a537debfb9012a3c20.css" media="screen" rel="stylesheet" type="text/css" />
-	
-    <link href="https://s0.assets-yammer.com/assets/resources/yam-public-0dc15da2f7f42f41bad2c11cd33e5848.css" media="screen, projection, print" rel="stylesheet" type="text/css" />
-    <link href="https://s0.assets-yammer.com/assets/resources/yam-common-ui-fbe11afcd4a9a5daa8f4658b5cb4be57.css" media="screen, projection, print" rel="stylesheet" type="text/css" />
 
     </head>
 
-  <div class="wrapper yj-clearfix">
-    <div class="global-header global-header-ps3" role="banner">
+
+
+
+<body>
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Header -->
+					<header id="header">
+				
   <div class="container">
     <div class="row">
-          <a href="/YouConnect-SocialNetworking/welcome.html"><img alt="YouConnect : The UNCC social networking site" id="logo" src="http://i.imgur.com/yEPWwST.png" title="What are you working on?" width="600" height="100" /></a>
-    </div>    
-  </div>
+          <a href="/YouConnect-SocialNetworking/"><img alt="YouConnect : The UNCC social networking site" id="logo" src="http://i.imgur.com/yEPWwST.png" title="What you want to do today?" width="600" height="100" /></a>
+    </div>   
+</div>
+  <div class="grid4">
+    <div class="side-col" role="complementary">
+	  <h3 role="heading" aria-level="2">Already have an account?</h3>
+	  <p>
+      <a href="login">Log In</a><span> or</span><br />
+      <a href="/forgotten_password/new">Reset your password</a>
+	  </p>
 </div>
 
- <div class="container">
-<div class="signup-form">
-  <form accept-charset="UTF-8" action="/YouConnect-SocialNetworking/submitForm.html" method="post">
+  </div>
+					</header>
+
+				<!-- Main -->
+<section id="main">
+
+<form accept-charset="UTF-8" action="/YouConnect-SocialNetworking/submitForm" method="post">
 
   <br>
   <br>
@@ -124,30 +121,30 @@ $("#datepicker").datepicker("option", "dateFormat", $(this).val());
         <button  type="submit" class="yj-btn  yj-btn-secondary "  ><span>Sign Up</span></button>
       </div>
     </div>
-    </div>
+    
 
     
 
 </form>
-</div>
-  <div class="grid4">
-    <div class="side-col" role="complementary">
-	  <h3 role="heading" aria-level="2">Already have an account?</h3>
-	  <p>
-      <a href="login">Log In</a><span> or</span><br />
-      <a href="/forgotten_password/new">Reset your password</a>
-	  </p>
+
+</section>
+
+<footer class="global-footer" role="contentinfo">
+			  <div class="container">
+			    <img id="corporate-logo" src="https://epic.uncc.edu/sites/epic.uncc.edu/files/media/UNCC.jpg" alt="UNCC" width="1000" height="100">
+			  </div>
+			</footer>
+
 </div>
 
-  </div>
+			
 
-    </div>
-    <div class="footer-push"></div> 
-  </div>
-  <footer class="global-footer" role="contentinfo">
-  <div class="container">
-    <img id="corporate-logo" src="https://epic.uncc.edu/sites/epic.uncc.edu/files/media/UNCC.jpg" alt="UNCC" width="1000" height="100">
-  </div>
-</footer>
-</body>
+
+		<!-- Scripts -->
+			<script src="resources/js/jquery.min.js"></script>
+			<script src="resources/js/jquery.poptrox.min.js"></script>
+			<script src="resources/js/skel.min.js"></script>
+			<script src="resources/js/main.js"></script>
+
+	</body>
 </html>
