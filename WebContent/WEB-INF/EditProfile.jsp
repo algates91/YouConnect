@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <html lang="en">
 <head>
 	<title>YouConnect
@@ -15,9 +16,6 @@
 <link rel="stylesheet" href="resources/css/style.css">
 
   <script>
-  
-  window.onload =onLoad;
-  
   $(document).ready(function() {
 // Datepicker Popups calender to Choose date.
 $(function() {
@@ -28,28 +26,36 @@ $("#datepicker").datepicker("option", "dateFormat", $(this).val());
 });
 });
 });
-  
-  
-  function onLoad(){
-	  
-	  var emailId = ${emailId};
-	  
-	  alert("emailId--> "+ emailId);
-	  
-	  document.getElementById("emailId").value =emailId;
-	  
-  }
   </script>
+  
+ <!--  <script type="text/javascript">
+    $(document).ready(function() {
+      String x = request.getParameter("edit");
+      toggleFrequencySelectBox(x); // show/hide box on page load
+
+    });
+    function toggleFrequencySelectBox(String) {
+      if(x!=null && x.equals("confirm")) {
+        $('#memberFirstName').prop('readonly', false);
+        $('#update').prop('disabled', false);
+      } else {
+        $('#memberFirstName').prop('readonly', true);
+        $('#update').prop('disabled', true);
+      }
+    }
+  </script> -->
+   
 </head>
 <body>
 <div class="wrapper yj-clearfix">
-    <div class="global-header global-header-ps3" role="banner">
-  		<div class="container">
-    		<div class="row">
-          		<a href="/YouConnect-SocialNetworking/welcome.html"><img alt="YouConnect : The UNCC social networking site" id="logo" src="http://i.imgur.com/yEPWwST.png" title="What are you working on?" width="600" height="100" /></a>
-    		</div>    
-  		</div>
-	</div>
+  		<header id="header">
+						<span class="avatar"><a href="homePageRedirect"><img src="resources/images/profilePicture.png" alt="" /></a></span>
+						<ul class="icons">
+							<li><a href="/YouConnect-SocialNetworking/editprofile.html" class="fa fa-pencil-square-o"><span class="label"> View/Edit Profile</span></a></li>
+							<li><a href="#" class="fa fa-camera-retro"><span class="label"> Edit Photo</span></a></li>
+							<li><a href="/YouConnect-SocialNetworking/logOut" class="fa fa-sign-out"><span class="label"> Sign Out</span></a></li>
+						</ul>
+					</header>
     <!-- <div class="container"> -->
 		<!-- <div class="edit-profile"> -->
   			<form accept-charset="UTF-8" action="/YouConnect-SocialNetworking/updateForm.html" method="post">
@@ -57,58 +63,56 @@ $("#datepicker").datepicker("option", "dateFormat", $(this).val());
   				<br>
  				<div class="row">
       				<label for="user_last_name">Email Id*</label><br>
-      				<input aria-required="true" class="yj-validate last-name required wider pw-validate" id="emailId" name="emailId" size="30" type="text"   readonly/>
+      				<input aria-required="true" class="yj-validate last-name required wider pw-validate" id="emailId" name="emailId" size="30" type="text" value="${emailId}" readonly/>
       				<span class="yj-error-container"></span>
     			</div>
 				<br>
 				<div class="row">
       				<label for="user_first_name">First Name*</label><br>
-      				<input aria-required="true" class="yj-validate first-name required initial-focus wider" id="memberFirstName" name="memberFirstName" size="30" type="text" />
+      				<input aria-required="true" class="yj-validate first-name required initial-focus wider" id="memberFirstName" name="memberFirstName" size="30" type="text" value="${firstname}"/>
       				<span class="yj-error-container"></span>
 	  			</div>
 	  			<br>
 	  			<div class="row">
      				<label for="user_last_name">Last Name*</label><br>
-      				<input aria-required="true" class="yj-validate last-name required wider pw-validate" id="memberLastName" name="memberLastName" size="30" type="text" />
+      				<input aria-required="true" class="yj-validate last-name required wider pw-validate" id="memberLastName" name="memberLastName" size="30" type="text" value="${lastname}"/>
       				<span class="yj-error-container"></span>
     			</div>
 				<br>
     			<div class="row">
       				<label for="user_job_title">Gender</label><br>
-      				<input autocomplete="off" class="job-title wider pw-validate" id="memberGender" name="memberGender" size="30" type="text" />
+      				<input autocomplete="off" class="job-title wider pw-validate" id="memberGender" name="memberGender" size="30" type="text" value="${gender}"/>
       				<span class="yj-error-container"></span>
     			</div>
 				<br>
 	  			<div class="row">
       				<label for="user_job_title">Date of Birth</label><br>
-	  				<input type="text" name="memberDOB" id="datepicker"/>
+	  				<input type="text" name="memberDOB" id="datepicker" value="${dob}"/>
       				<span class="yj-error-container"></span>
     			</div>
 				<br>
 				<div class="row">
       				<label for="user_job_title">Phone Number</label><br>
-      				<input autocomplete="off" class="job-title wider pw-validate" id="memberPhoneNumber" name="memberPhoneNumber" size="30" type="text" />
+      				<input autocomplete="off" class="job-title wider pw-validate" id="memberPhoneNumber" name="memberPhoneNumber" size="30" type="text" value="${phone}"/>
       				<span class="yj-error-container"></span>
     			</div>
 				<br>
 				<br>
 	    		<div class="row">
     	    		<div class="action-btns">
-        				<button type="submit" class="yj-btn  yj-btn-secondary "  ><span>Update</span></button>
+        				<button type="submit" class="yj-btn  yj-btn-secondary " name="update" ><span>Save</span></button>
       				</div>
     			</div>
     		</form>
     		<br/>
     		<br/>
-    		<form accept-charset="UTF-8" action="/YouConnect-SocialNetworking/editpassword.html" method="get">
-    			<button type="submit" class="yj-btn  yj-btn-secondary "><span>Edit Password</span></button>
+    		<form accept-charset="UTF-8" action="/YouConnect-SocialNetworking/editPassword.html" method="get">
+    			<button type="submit" class="yj-btn  yj-btn-secondary " name="passwordEdit"><span>Edit Password</span></button>
     		</form>
     	</div>
-	<!-- </div> -->
-	<!-- </div> -->
 
-<%-- <script src="${pageContext.request.contextPath}/static/libs/jquery.validate.min.js"></script>
-<script src="${pageContext.request.contextPath}/static/js/profile-edit-validation-rules.js"></script> --%>
+<script src="${pageContext.request.contextPath}/static/libs/jquery.validate.min.js"></script>
+<script src="${pageContext.request.contextPath}/static/js/profile-edit-validation-rules.js"></script>
 
 </body>
 </html>

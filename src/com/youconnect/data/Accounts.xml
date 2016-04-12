@@ -45,13 +45,14 @@
 	#{memberGender}, #{memberPhoneNumber});
 	</insert>
 
-	<update id="update" parameterType="Member">
-	  	UPDATE MEMBERS
+  
+  	<update id="update" parameterType="Account">
+	  	UPDATE ACCOUNTS
 		SET
-			email_id = #{emailId},
-			first_name_s = #{memberFirstName},
-			mobile_no = #{memberPhoneNumber}
-		WHERE profile_id = #{emailId};
+			passwords = #{passWord}
+		WHERE email_id = #{LoginId};
   </update>
+  
 
 </mapper>
+

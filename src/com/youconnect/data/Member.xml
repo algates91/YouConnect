@@ -23,7 +23,16 @@
     	SELECT * FROM MEMBERS WHERE email_id = #{id}
   	</select>
   
-    
+    <update id="update" parameterType="Member">
+	  	UPDATE MEMBERS
+		SET
+			first_name_s = #{memberFirstName},
+			last_name_s = #{memberLastName},
+			gender = #{memberGender},
+			date_of_birth = #{memberDOB},
+			mobile_no = #{memberPhoneNumber}
+		WHERE email_id = #{emailId};
+  </update>
     <delete id="deleteById" parameterType="int">
     	DELETE from MEMBERS WHERE profile_id = #{id};
     </delete>
@@ -48,14 +57,6 @@
 		#{memberGender}, #{memberPhoneNumber}, #{searchIdClob});
 	</insert>
 
-	<update id="update" parameterType="Member">
-	  	UPDATE MEMBERS
-		SET
-			email_id = #{emailId},
-			first_name_s = #{memberFirstName},
-			mobile_no = #{memberPhoneNumber}
-		WHERE profile_id = #{emailId};
-  </update>
   
   <select id="getSearchResult" parameterType="Member" resultMap="result">
   	

@@ -4,6 +4,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,7 +31,21 @@ public class SignUpController {
 		return model;
 	}
 	
+	@RequestMapping(value="/logOut", method = RequestMethod.GET)
 	
+	public ModelAndView doLogout(@ModelAttribute("acct") Account acct, HttpSession ses, HttpServletRequest req){
+		
+		ses = req.getSession(false);
+		if(ses!=null)
+			ses.invalidate();
+		
+		acct =null;
+		ModelAndView model = new ModelAndView("LoginPage");
+
+		return model;
+		
+		
+	}
 
 	@RequestMapping(value="/submitForm", method = RequestMethod.POST)
 	public ModelAndView submitAdmissionForm(@ModelAttribute("member") Member member, HttpSession ses) {
@@ -49,9 +64,11 @@ public class SignUpController {
 	}
 	
 	@RequestMapping(value="/submitLogin", method = RequestMethod.POST)
-	public ModelAndView submitLoginForm(@ModelAttribute("acct") Account acct, HttpSession ses) {
+	public ModelAndView submitLoginForm(@ModelAttribute("acct") Account acct, HttpSession ses,HttpServletRequest req) {
 		ModelAndView model=null;
+		
 		try{
+			ses=req.getSession(true);
 			ses.setAttribute("emailId", acct.getLoginId());
 			//ses.setAttribute("name", member.getmemberFirstName()+" "+ member.getMemberLastName());
 		AccountDAO ad = new AccountDAO();
@@ -80,6 +97,7 @@ public class SignUpController {
 		
 		
 	}
+	
 		return model;
 	}
 	private Account populateAccountBean(Member member) {
@@ -110,14 +128,17 @@ public class SignUpController {
 	}
 	
 	@RequestMapping(value="/updateForm.html", method = RequestMethod.POST)
-	public ModelAndView submitUpdationForm(@ModelAttribute("member") Member member) {
+	public ModelAndView submitUpdationForm(HttpServletRequest request, @ModelAttribute("member") Member member) {
 
 		MemberDAO md = new MemberDAO();
-//		String email = md.selectEmail(800936067);
-//		member.setEmailId(email);
+		member.setEmailId(request.getParameter("emailId"));
+		member.setmemberFirstName(request.getParameter("memberFirstName"));
+		member.setMemberLastName(request.getParameter("memberLastName"));
+		member.setMemberGender(request.getParameter("memberGender"));
+		member.setMemberDOB(request.getParameter("memberDOB"));
+		member.setMemberPhoneNumber(request.getParameter("memberPhoneNumber"));
 		md.update(member);
-		ModelAndView model = new ModelAndView("AdmissionSuccess");
-		//model.addObject("member",member);
+		ModelAndView model = new ModelAndView("HomePage");
 		
 		return model;
 	}
@@ -128,11 +149,42 @@ public class SignUpController {
 		AccountDAO md = new AccountDAO();
 
 		md.updatePassword(account);
-		ModelAndView model = new ModelAndView("AdmissionSuccess");
-		//model.addObject("member",member);
+		ModelAndView model = new ModelAndView("HomePage");
 		
 		return model;
 	}
 	
+	@RequestMapping(value="/submitPassword", method = RequestMethod.POST)
+	public ModelAndView submitPasswordForm(HttpServletRequest request, @ModelAttribute("acct") Account acct) {
+
+		ModelAndView model = null;
+		try{			
+			AccountDAO ad = new AccountDAO();
+			
+			String pass1 = request.getParameter("passWord");
+			String pass2 = request.getParameter("passWord2");
+			
+			if(pass1.equals(pass2)){
+				
+				acct.setLoginId(request.getSession().getAttribute("emailId").toString());
+				acct.setPassWord(request.getParameter("passWord"));
+				ad.updatePassword(acct);
+				model = new ModelAndView("HomePage");
+				model.addObject("headerMessage","Password updated!");
+			}
+			else{
+				
+				model = new ModelAndView("UpdatePassword");
+				model.addObject("headerMessage","Passwords do not match! Please try again");			
+			}
+			
+		
+		}
+		catch(Exception ex){
+			//model = new ModelAndView("UpdatePassword");
+			
+		}
+		return model;
+	}
 }
 

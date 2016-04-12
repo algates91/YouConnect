@@ -9,7 +9,9 @@
       : Login
     </title>
 
-
+	<script>
+    history.forward();
+</script>
 
 
 	<link href="https://s0.assets-yammer.com/assets/resources/yam-application-7c3e2c0eadd794a4e9033e558ba59c76.css" media="screen, projection, print" rel="stylesheet" type="text/css" />

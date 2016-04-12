@@ -1,5 +1,7 @@
 package com.youconnect.dao;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 
@@ -21,6 +23,18 @@ public class AccountDescDAO {
 		try {
 			acctDesc = (AccountDesc) session.selectOne("AccountDesc.getByIds",acctDesc);
 			return acctDesc;
+		} finally {
+			session.close();
+		}
+	}
+	@SuppressWarnings("unchecked")
+	public List<AccountDesc> selectFriendsByIds(AccountDesc acctDesc){
+
+		SqlSession session = sqlSessionFactory.openSession();
+		
+		try {
+			List<AccountDesc> acctDescLst =  session.selectList("AccountDesc.getFriendsById",acctDesc);
+			return acctDescLst;
 		} finally {
 			session.close();
 		}

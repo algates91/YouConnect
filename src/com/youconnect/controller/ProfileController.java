@@ -91,15 +91,6 @@ public class ProfileController {
 		return model;
 	}
 
-	@RequestMapping(value="/editprofile.html", method = RequestMethod.GET)
-	public ModelAndView getProfilePage(@ModelAttribute("member") Member member, HttpServletRequest req) {
-
-		ModelAndView model = new ModelAndView("EditProfile");
-		model.addObject("emailId", req.getAttribute("emailId"));
-
-		return model;
-	}
-
 	@RequestMapping(value="/addasfriend", method = RequestMethod.GET)
 	public ModelAndView addFriends(@ModelAttribute("acctDesc") AccountDesc acctDesc, HttpSession ses) {
 		
@@ -162,6 +153,31 @@ public class ProfileController {
 		ad.delete(acctDesc);
 		//ses.removeAttribute("friendsemailId");
 		return new ModelAndView("redirect:" + "/viewProfile");
+	}
+	
+	@RequestMapping(value="/editprofile.html", method = RequestMethod.GET)
+	public ModelAndView getProfilePage(HttpServletRequest request, @ModelAttribute("member") Member member) {
+
+		MemberDAO mem = new MemberDAO();
+		member = mem.selectById(request.getSession().getAttribute("emailId").toString());
+		
+		ModelAndView model = new ModelAndView("EditProfile");
+		model.addObject("emailId", request.getSession().getAttribute("emailId"));
+		model.addObject("firstname", member.getmemberFirstName());
+		model.addObject("lastname", member.getMemberLastName());
+		model.addObject("gender", member.getMemberGender());
+		model.addObject("dob", member.getMemberDOB());
+		model.addObject("phone", member.getMemberPhoneNumber());
+
+		return model;
+	}
+	
+	@RequestMapping(value="/editPassword.html", method = RequestMethod.GET)
+	public ModelAndView getEditPasswordPage() {
+
+		ModelAndView model = new ModelAndView("UpdatePassword");
+
+		return model;
 	}
 	
 }

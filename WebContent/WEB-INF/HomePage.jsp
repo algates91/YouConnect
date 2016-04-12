@@ -13,12 +13,13 @@
 
 				<!-- Header -->
 					<header id="header">
-						<span class="avatar"><img src="resources/images/profilePicture.png" alt="" /></span>
+						<span class="avatar"><a href="homePageRedirect"><img src="resources/images/profilePicture.png" alt="" /></a></span>
 						<ul class="icons">
 							<li><a href="/YouConnect-SocialNetworking/editprofile.html" class="fa fa-pencil-square-o"><span class="label"> View/Edit Profile</span></a></li>
 							<li><a href="#" class="fa fa-camera-retro"><span class="label"> Edit Photo</span></a></li>
-							<li><a href="#" class="fa fa-sign-out"><span class="label"> Sign Out</span></a></li>
+							<li><a href="/YouConnect-SocialNetworking/logOut" class="fa fa-sign-out"><span class="label"> Sign Out</span></a></li>
 						</ul>
+						${headerMessage} 
 						<form method="get" action="/YouConnect-SocialNetworking/results.html">
 							<div>
 								<input type="text" name="searchstring"/>
@@ -67,11 +68,7 @@
 
 			</div>
 
-		<!-- Scripts -->
-			<script src="resources/js/jquery.min.js"></script>
-			<script src="resources/js/jquery.poptrox.min.js"></script>
-			<script src="resources/js/skel.min.js"></script>
-			<script src="resources/js/main.js"></script>
+		
 
 	</body>
 </html>

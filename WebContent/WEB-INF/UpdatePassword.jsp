@@ -37,7 +37,9 @@
 	</div>
     <div class="container">
 		<div class="edit-password">
-  			<form accept-charset="UTF-8" action="/YouConnect-SocialNetworking/submitForm.html" method="post">
+  			<form accept-charset="UTF-8" action="/YouConnect-SocialNetworking/submitPassword.html" method="post">
+  			
+  			${headerMessage} 
 				<br>
   				<br>
  				<div class="row login-password">
