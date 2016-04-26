@@ -37,7 +37,7 @@ public class ProfileController {
 		member =md.selectById(emailId);
 		acctDesc = ad.selectByIds(acctDesc);
 		ses.setAttribute("friendsemailId", emailId);
-		if(acctDesc!=null ){
+		/*if(acctDesc!=null ){
 			if(acctDesc.getSelfFlag()==1 && acctDesc.getFriendsFlag()==0){
 				
 				displayContent.append("<form method=\"get\" action=\"#\">") ;
@@ -83,7 +83,7 @@ public class ProfileController {
 			displayContent.append("</form>");
 			
 			
-		}
+		}*/
 		ModelAndView model = new ModelAndView("ViewFriendProfile");
 		model.addObject("displayContent", displayContent.toString());
 		model.addObject("member",member);

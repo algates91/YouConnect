@@ -24,7 +24,7 @@
     
     <select id="getFriendsById" parameterType="AccountDesc" resultMap="result">
     	
-		SELECT first_name_s,last_name_s,self_flag,friends_flag,friend_id FROM ACCOUNTDESC ad,members mem
+		SELECT mem.first_name_s,mem.last_name_s,ad.self_flag,ad.friends_flag,ad.friend_id FROM ACCOUNTDESC ad,members mem
 		 WHERE  mem.email_id=ad.friend_id and ad.email_id=#{emailId};
 	 
     </select>

@@ -16,7 +16,14 @@ public class Member {
 	private String emailId;
 	private String searchIdClob;
 	private String searchString;
+	private String passWord2;
 	
+	public String getPassWord2() {
+		return passWord2;
+	}
+	public void setPassWord2(String passWord2) {
+		this.passWord2 = passWord2;
+	}
 	public String getSearchString() {
 		return searchString;
 	}

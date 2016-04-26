@@ -29,7 +29,7 @@ public class SearchController {
 		member.setEmailId((String)ses.getAttribute("emailId"));
 		
 		List<Member> al =md.selectList(member);
-		int count=1;
+		/*int count=1;
 		sb.append("<table>");
 		for(Member m: al){
 			
@@ -48,9 +48,9 @@ public class SearchController {
 		}
 		count--;
 		
-		sb.append("</table>");
+		sb.append("</table>");*/
 		ModelAndView model = new ModelAndView("SearchResult");
-		model.addObject("count",sb.toString());
+		model.addObject("al",al);
 		return model;
 	}
 

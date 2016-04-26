@@ -1,5 +1,7 @@
-<!DOCTYPE HTML>
-<html>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<%@ taglib  uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd"><html>
 	<head>
 		<title>YouConnect</title>
 		<meta charset="utf-8" />
@@ -17,8 +19,37 @@
 						<ul class="icons">
 							
 						</ul>
-												
-						${displayContent}
+						<form method="get" action="/YouConnect-SocialNetworking/homePageRedirect">
+			   				<input type="submit" value="Home" />
+			   			</form>
+						<c:if test="${acctDesc.getSelfFlag()== 1 and acctDesc.getFriendsFlag()  ==0}">
+				
+			   			<form method="get" action="#">
+			   				<input type="submit" value="Request Pending" disabled/>
+			   			</form>
+			         </c:if>
+						<c:if test="${acctDesc.getSelfFlag()== 1 and acctDesc.getFriendsFlag()  ==1}">
+				
+			   			<form method="get" action="/YouConnect-SocialNetworking/unfriend">
+			   				<input type="submit" value="UnFriends" />
+			   			</form>
+			         </c:if>
+			         <c:if test="${acctDesc.getSelfFlag()== 0 and acctDesc.getFriendsFlag()  ==1}">
+				
+			   			<form method="get" action="/YouConnect-SocialNetworking/accept">
+			   				<input type="submit" value="Accept" />
+			   			</form>
+			   			<form method="get" action="/YouConnect-SocialNetworking/reject">
+			   				<input type="submit" value="Reject" />
+			   			</form>
+			         </c:if>							
+						<c:if test="${acctDesc.getSelfFlag()== 0 and acctDesc.getFriendsFlag()  ==0}">
+				
+			   			<form method="get" action="/YouConnect-SocialNetworking/addasfriend">
+			   				<input type="submit" value="Add as a Friend" />
+			   			</form>
+			   			
+			         </c:if>	
 					</header>
 	<form accept-charset="UTF-8" >
 				<br>

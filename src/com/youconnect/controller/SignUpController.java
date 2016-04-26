@@ -48,17 +48,64 @@ public class SignUpController {
 	}
 
 	@RequestMapping(value="/submitForm", method = RequestMethod.POST)
-	public ModelAndView submitAdmissionForm(@ModelAttribute("member") Member member, HttpSession ses) {
+	public ModelAndView validateAdmissionForm(@ModelAttribute("member") Member member, HttpSession ses) {
 		
-		member.setSearchIdClob(member.getmemberFirstName()+"|"+member.getMemberLastName()+"|"+member.getEmailId().split("@")[0]);
+		String displayContent=null;
+		ModelAndView model =null;
+		try{
+		if(member.getEmailId()!=null && member.getEmailId().isEmpty()){
+			displayContent="EmailId is mandatory!";
+			 model = new ModelAndView("SignUp");
+			 model.addObject("displayContent", displayContent);
+		}
+		else if(member.getmemberFirstName()!=null &&member.getmemberFirstName().isEmpty() ){
+			displayContent="First name is mandatory!";
+			 model = new ModelAndView("SignUp");
+			 model.addObject("displayContent", displayContent);
+		}
+		else if(member.getMemberLastName()!=null && member.getMemberLastName().isEmpty()){
+			displayContent="Last Name is mandatory!";
+			 model = new ModelAndView("SignUp");
+			 model.addObject("displayContent", displayContent);
+		}
+		else if(member.getPassWord()!= null && member.getPassWord().isEmpty()){
+			displayContent="Password is mandatory!";
+			 model = new ModelAndView("SignUp");
+			 model.addObject("displayContent", displayContent);
+		}
+		else if(!member.getPassWord().equalsIgnoreCase(member.getPassWord2())){
+			displayContent="Passwords doesn't match!";
+			 model = new ModelAndView("SignUp");
+			 model.addObject("displayContent", displayContent);
+		}
+		else if(member.getMemberGender()!= null && member.getMemberGender().isEmpty() ){
+			displayContent="Gender is mandatory!";
+			model = new ModelAndView("SignUp");
+			model.addObject("displayContent", displayContent);
+		}
+		else{
+
+			member.setSearchIdClob(member.getmemberFirstName()+"|"+member.getMemberLastName()+"|"+member.getEmailId().split("@")[0]);
+			
+			Account acct=populateAccountBean(member);
+			ses.setAttribute("emailId", member.getEmailId());
+			ses.setAttribute("name", member.getmemberFirstName()+" "+ member.getMemberLastName());
+			MemberDAO md = new MemberDAO();
+			md.insert(member);
+			md.insertAccout(acct);
+			model = new ModelAndView("HomePage");
+			
+			
 		
-		Account acct=populateAccountBean(member);
-		ses.setAttribute("emailId", member.getEmailId());
-		ses.setAttribute("name", member.getmemberFirstName()+" "+ member.getMemberLastName());
-		MemberDAO md = new MemberDAO();
-		md.insert(member);
-		md.insertAccout(acct);
-		ModelAndView model = new ModelAndView("HomePage");
+			
+		}
+		}
+		catch(Exception ex){
+			displayContent="Duplicate Account Detail";
+			model = new ModelAndView("SignUp");
+			model.addObject("displayContent", displayContent);
+			
+		}
 		
 		return model;
 	}

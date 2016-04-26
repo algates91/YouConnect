@@ -1,4 +1,7 @@
-<!DOCTYPE HTML>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<%@ taglib  uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 	<head>
 		<title>YouConnect</title>
@@ -61,8 +64,52 @@
         </div>
     </div>
 </div> -->
-
-				${displayContent}
+	<center><h2>FriendsList</h2></center>
+				<table style="width:100%" border=yes>
+			<c:forEach items="${al}" var="map" varStatus="count">
+			
+				<c:if test="${map.getSelfFlag()== 1 and map.getFriendsFlag()  ==1}">
+				
+			    <tr>	
+			        <td><a href="/YouConnect-SocialNetworking/viewProfile?emailId=${map.getFriendId()}">${map.getLastName()}, ${map.getFirstName()}</a></td>
+					<td><h3>${map.getEmailId()}</h3></td>
+					 
+			        
+			         <tr>
+			         </c:if>
+				</c:forEach>
+				
+				</table>
+					<center><h2>Request Pending</h2></center>
+				<table style="width:100%" border=yes>
+			<c:forEach items="${al}" var="map" varStatus="count">
+				<c:if test="${map.getSelfFlag()== 1 and map.getFriendsFlag()  ==0}">
+				
+			    <tr>	
+			        <td><a href="/YouConnect-SocialNetworking/viewProfile?emailId=${map.getFriendId()}">${map.getLastName()}, ${map.getFirstName()}</a></td>
+					<td><h3>${map.getEmailId()}</h3></td>
+					 
+			        
+			         <tr>
+			         </c:if>
+				</c:forEach>
+				
+				</table>
+				<center><h2>Awaiting Response</h2></center>
+		<table style="width:100%" border=yes>
+			<c:forEach items="${al}" var="map" varStatus="count">
+				<c:if test="${map.getSelfFlag()== 0 and map.getFriendsFlag()  ==1}">
+				
+			    <tr>	
+			        <td><a href="/YouConnect-SocialNetworking/viewProfile?emailId=${map.getFriendId()}">${map.getLastName()}, ${map.getFirstName()}</a></td>
+					<td><h3>${map.getEmailId()}</h3></td>
+					 
+			        
+			         <tr>
+			         </c:if>
+				</c:forEach>
+				
+				</table>
 					</section>
 
 			<footer class="global-footer" role="contentinfo">

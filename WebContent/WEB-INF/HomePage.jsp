@@ -47,7 +47,7 @@
 								</div>
 								<div></div>
 								<div>
-									<a href="resources/images/fulls/02.jpg">
+									<a href="/YouConnect-SocialNetworking/forumView">
 										<img src="resources/images/forums.jpg" alt="" />
 										<h3>Forums</h3>
 									</a>

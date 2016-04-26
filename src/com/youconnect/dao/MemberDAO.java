@@ -17,9 +17,15 @@ public class MemberDAO {
 	
 	private SqlSessionFactory sqlSessionFactory; 
 	
-	public MemberDAO(){
-		sqlSessionFactory = MyBatisConnectionFactory.getSqlSessionFactory();
+	public MemberDAO(SqlSessionFactory sqlSessionFactory){
+		this.sqlSessionFactory = sqlSessionFactory;
+				//MyBatisConnectionFactory.getSqlSessionFactory();
 	}
+	
+	public MemberDAO(){
+		this.sqlSessionFactory = MyBatisConnectionFactory.getSqlSessionFactory();
+	}
+	
 	
 
 	/**

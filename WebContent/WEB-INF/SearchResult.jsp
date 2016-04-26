@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-<!DOCTYPE HTML>
+<%@ taglib  uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 	<head>
 		<title>YouConnect</title>
@@ -33,16 +34,32 @@
 				<!-- Main -->
 					<section id="main">
 
-							<h2>Details submitted by you: </h2>
+							<h2>YouConnect members list </h2>
 	
-							${count}
+								<table style="width:100%" border=yes>
+				<tr>	
+					<td><h2>Name</h2></td>
+					<td><h2>EmailId</h2></td>
+				<!-- 	<td><h2>Title</h2></td>
+					<td><h2>Author</h2></td>
+					<td><h2>Quantity</h2></td>
+					<td><h2>Price</h2></td>
+					<td><h2>Year of Publication</h2></td>
+					<td><h2>BuyThis</h2></td> -->
+				</tr>
+				<c:forEach items="${al}" var="map">
+			    <tr>	
+			        <td><a href="/YouConnect-SocialNetworking/viewProfile?emailId=${map.getEmailId()}">${map.getMemberLastName()}, ${map.getmemberFirstName()}</a></td>
+					<td><h3>${map.getEmailId()}</h3></td>
+					 
+			        
+			         <tr>
+				</c:forEach>
+				</table>
 
 					</section>
 
-				<!-- Footer -->
-					<footer id="footer">
-						<p>&copy; Untitled. All rights reserved. Design: <a href="http://templated.co">TEMPLATED</a>. Demo Images: <a href="http://unsplash.com">Unsplash</a>.</p>
-					</footer>
+			
 
 			</div>
 

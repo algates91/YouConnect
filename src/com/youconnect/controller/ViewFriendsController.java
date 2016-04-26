@@ -30,8 +30,8 @@ public class ViewFriendsController {
 		acctDesc.setEmailId((String)ses.getAttribute("emailId"));
 		StringBuffer sb= new StringBuffer();
 		AccountDescDAO ad = new AccountDescDAO();
-		List<AccountDesc> acctdesclst= ad.selectFriendsByIds(acctDesc);
-		int count=0;
+		List<AccountDesc> al= ad.selectFriendsByIds(acctDesc);
+/*		int count=0;
 		sb.append("<center><h2>FriendsList</h2></center>");
 		sb.append("<table>");
 		for(AccountDesc m: acctdesclst){
@@ -101,10 +101,10 @@ public class ViewFriendsController {
 		if(count<=0){
 			sb.append("<tr> No Friends who are awaiting your response at this time. </tr>");
 		}
-		sb.append("</table>");
+		sb.append("</table>");*/
 		//md.insert(member);
 		ModelAndView model = new ModelAndView("ViewFriends");
-		model.addObject("displayContent", sb.toString());
+		model.addObject("al", al);
 		
 		return model;
 	}

@@ -7,6 +7,7 @@
 		<link rel="stylesheet" href="resources/css/main.css" />
 
 <!------------ Including jQuery Date UI with CSS --------------> 
+<script src="http://code.jquery.com/jquery-1.10.2.js"></script> 
  <script src="http://code.jquery.com/ui/1.11.0/jquery-ui.js"></script> 
  <link rel="stylesheet" href="http://code.jquery.com/ui/1.11.0/themes/smoothness/jquery-ui.css"> 
  <!-- jQuery Code executes on Date Format option -----> 
@@ -24,6 +25,7 @@
  }); 
  }); 
  }); 
+ 
    </script> 
   
 
@@ -61,11 +63,13 @@
 				<!-- Main -->
 <section id="main">
 
-<form accept-charset="UTF-8" action="/YouConnect-SocialNetworking/submitForm" method="post">
+<form name="signup" accept-charset="UTF-8" action="/YouConnect-SocialNetworking/submitForm" method="post">
 
+<font color="red"><h2> ${displayContent} </h2></font>
   <br>
   <br>
  <div class="row">
+ 		
       <label for="user_last_name">Email Id*</label><br>
       <input aria-required="true" class="yj-validate last-name required wider pw-validate" id="emailId" name="emailId" size="30" type="text" />
       <span class="yj-error-container"></span>
@@ -140,11 +144,6 @@
 			
 
 
-		<!-- Scripts -->
-			<script src="resources/js/jquery.min.js"></script>
-			<script src="resources/js/jquery.poptrox.min.js"></script>
-			<script src="resources/js/skel.min.js"></script>
-			<script src="resources/js/main.js"></script>
 
 	</body>
 </html>

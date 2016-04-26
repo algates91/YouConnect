@@ -21,7 +21,7 @@ public class AccountDescDAO {
 		SqlSession session = sqlSessionFactory.openSession();
 		
 		try {
-			acctDesc = (AccountDesc) session.selectOne("AccountDesc.getByIds",acctDesc);
+			acctDesc = (AccountDesc) session.selectOne("AccountDescs.getByIds",acctDesc);
 			return acctDesc;
 		} finally {
 			session.close();
@@ -33,7 +33,7 @@ public class AccountDescDAO {
 		SqlSession session = sqlSessionFactory.openSession();
 		
 		try {
-			List<AccountDesc> acctDescLst =  session.selectList("AccountDesc.getFriendsById",acctDesc);
+			List<AccountDesc> acctDescLst =  session.selectList("AccountDescs.getFriendsById",acctDesc);
 			return acctDescLst;
 		} finally {
 			session.close();
