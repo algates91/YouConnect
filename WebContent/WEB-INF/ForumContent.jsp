@@ -10,11 +10,11 @@
 		<link rel="stylesheet" href="resources/css/main.css" />
 		<script language="javascript" type="text/javascript">
 
-function popitup(url) {
+/* function popitup(url) {
 	newwindow=window.open(url,'name','height=300,width=550');
 	if (window.focus) {newwindow.focus()}
 	return false;
-}
+} */
 
 
 </script>
@@ -78,7 +78,7 @@ function popitup(url) {
 						<br>
 						<br>
 						<input type="submit" value="Submit" />	
-						<a href="/YouConnect-SocialNetworking/popupex.html" onclick="return popitup('/YouConnect-SocialNetworking/popupex.html')">Invite a Member outside UNCC network</a>
+						<a href="/YouConnect-SocialNetworking/popupex.html" onclick="javascript:void window.open('/YouConnect-SocialNetworking/popupex.html','1461642804314','width=550,height=300,toolbar=0,menubar=0,location=0,status=1,scrollbars=1,resizable=1,left=0,top=0');return false;">Invite a Member outside UNCC network</a>
 					</form>
 					
 				

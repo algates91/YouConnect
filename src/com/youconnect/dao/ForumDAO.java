@@ -18,6 +18,11 @@ public class ForumDAO {
 		sqlSessionFactory = MyBatisConnectionFactory.getSqlSessionFactory();
 	}
 	
+	public ForumDAO(SqlSessionFactory sqlSessionFactory){
+		this.sqlSessionFactory = sqlSessionFactory;
+				//MyBatisConnectionFactory.getSqlSessionFactory();
+	}
+	
 	public List<Forum> selectByIds(Forum form){
 
 		SqlSession session = sqlSessionFactory.openSession();

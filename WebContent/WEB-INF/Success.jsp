@@ -14,12 +14,7 @@
 
 		<!-- Wrapper -->
 			<div id="wrapper">
-			<br>
-			You are inviting a member outside UNCC for contributing to this thread.<br>
-			<form name="reply" method="post" action="/YouConnect-SocialNetworking/MakeURLforMember">
-				Email ID: <input type="text" name="MemberemailId"/><br>
-				<input type="submit" name="send" value="send"/>
-			</form>
+			<center><h3>${message}</h3></center>
 			</div>
 
 		

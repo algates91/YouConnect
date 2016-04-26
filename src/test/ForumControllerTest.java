@@ -4,41 +4,46 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.Reader;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
 import java.util.List;
 
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.springframework.mock.web.MockHttpServletRequest;
-import org.springframework.mock.web.MockHttpSession;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.MailSender;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.youconnect.appln.SendingEmail;
+import com.youconnect.bean.AccountDesc;
+import com.youconnect.bean.Forum;
 import com.youconnect.bean.Member;
+import com.youconnect.controller.ForumController;
 import com.youconnect.controller.ProfileController;
-import com.youconnect.controller.SearchController;
-import com.youconnect.controller.SignUpController;
+import com.youconnect.dao.AccountDescDAO;
+import com.youconnect.dao.ForumDAO;
 import com.youconnect.dao.MemberDAO;
 
 
-public class ProfileControllerTest {
+
+public class ForumControllerTest {
 	
-	
-	static ProfileController sign;
+	static ForumController sign;
 	static SqlSessionFactory sqlSessionFactory;
-	
 	
 	@BeforeClass
 	 public static void setUp() throws Exception {
@@ -48,34 +53,19 @@ public class ProfileControllerTest {
 		   Reader reader = new FileReader(resource);
 	 // Reader reader = Resources.getResourceAsReader(file);  
 	  sqlSessionFactory = new SqlSessionFactoryBuilder().build(reader);
-	  sign = new ProfileController();
+	  sign = new ForumController();
 	 }
 	
-	
-	//@Test
-	   public void testProfileControllerTestgetProfile() {
-		
-		Member member = new Member();
-		MemberDAO md = new MemberDAO(sqlSessionFactory);
-		member.setEmailId("ajagtap2@uncc.edu");
-		
-		member =md.selectById("ajagtap2@uncc.edu");
-		
-		Assert.assertNotNull(member);
-		
-	}
-	
-	
+
 	@Test
-	   public void testProfileControllerTestgetProfile1() {
+	public void testForumControllerTestgetProfile() {
 		
-		Member member = new Member();
-		MemberDAO md = new MemberDAO(sqlSessionFactory);
-		member.setEmailId("23232@uncc.edu");
+		Forum f = new Forum();
+		f.setForumId(1);
+		ForumDAO fd = new ForumDAO(sqlSessionFactory);
 		
-		member =md.selectById(member.getEmailId());
-		
-		Assert.assertNotNull(member);
+		Assert.assertNotNull(fd.selectByIds(f));
 		
 	}
+
 }
