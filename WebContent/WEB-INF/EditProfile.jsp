@@ -15,18 +15,6 @@
 <script src="js/script.js"></script>
 <link rel="stylesheet" href="resources/css/style.css">
 
-  <script>
-  $(document).ready(function() {
-// Datepicker Popups calender to Choose date.
-$(function() {
-$("#datepicker").datepicker();
-// Pass the user selected date format.
-$("#format").change(function() {
-$("#datepicker").datepicker("option", "dateFormat", $(this).val());
-});
-});
-});
-  </script>
   
  <!--  <script type="text/javascript">
     $(document).ready(function() {
@@ -49,7 +37,7 @@ $("#datepicker").datepicker("option", "dateFormat", $(this).val());
 <body>
 <div class="wrapper yj-clearfix">
   		<header id="header">
-						<span class="avatar"><a href="homePageRedirect"><img src="resources/images/profilePicture.png" alt="" /></a></span>
+						<span class="avatar"><a href="homePageRedirect"><img src="/YouConnect-SocialNetworking/getProfilePic" alt="" /></a></span>
 						<ul class="icons">
 							<li><a href="/YouConnect-SocialNetworking/editprofile.html" class="fa fa-pencil-square-o"><span class="label"> View/Edit Profile</span></a></li>
 							<li><a href="#" class="fa fa-camera-retro"><span class="label"> Edit Photo</span></a></li>

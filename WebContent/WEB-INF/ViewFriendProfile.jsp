@@ -15,7 +15,7 @@
 
 <!-- Header -->
 					<header id="header">
-						<span class="avatar"><img src="resources/images/profilePicture.png" alt="" /></span>
+						<span class="avatar"><img src="/YouConnect-SocialNetworking/getFriendsProfilePic" alt="" /></span>
 						<ul class="icons">
 							
 						</ul>

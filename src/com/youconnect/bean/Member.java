@@ -17,6 +17,7 @@ public class Member {
 	private String searchIdClob;
 	private String searchString;
 	private String passWord2;
+	private String picfilepath;
 	
 	public String getPassWord2() {
 		return passWord2;
@@ -100,6 +101,12 @@ public class Member {
 	public void setSearchIdClob(String searchClob) {
 		
 		this.searchIdClob = searchClob;
+	}
+	public String getPicfilepath() {
+		return picfilepath;
+	}
+	public void setPicfilepath(String picfilepath) {
+		this.picfilepath = picfilepath;
 	}
 
 	

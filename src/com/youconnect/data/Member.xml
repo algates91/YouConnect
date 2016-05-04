@@ -13,6 +13,7 @@
 	    <result property="memberPhoneNumber" column="mobile_no"/>
 	    <result property="profileId" column="profile_id"/>
 	    <result property="emailId" column="email_id"/>
+	    <result property="picfilepath" column="picfilepath"/>
     </resultMap>
 	
     <select id="getAll" resultMap="result">
@@ -31,6 +32,12 @@
 			gender = #{memberGender},
 			date_of_birth = #{memberDOB},
 			mobile_no = #{memberPhoneNumber}
+		WHERE email_id = #{emailId};
+  </update>
+  <update id="updatePic" parameterType="Member">
+	  	UPDATE MEMBERS
+		SET
+			picfilepath = #{picfilepath}
 		WHERE email_id = #{emailId};
   </update>
     <delete id="deleteById" parameterType="int">

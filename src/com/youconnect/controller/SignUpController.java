@@ -46,6 +46,18 @@ public class SignUpController {
 		
 		
 	}
+	
+	@RequestMapping(value="/editPhoto", method = RequestMethod.GET)
+	
+	public ModelAndView doChangePic(HttpSession ses, HttpServletRequest req){
+		
+
+		ModelAndView model = new ModelAndView("EditPicture");
+
+		return model;
+		
+		
+	}
 
 	@RequestMapping(value="/submitForm", method = RequestMethod.POST)
 	public ModelAndView validateAdmissionForm(@ModelAttribute("member") Member member, HttpSession ses) {
@@ -55,6 +67,11 @@ public class SignUpController {
 		try{
 		if(member.getEmailId()!=null && member.getEmailId().isEmpty()){
 			displayContent="EmailId is mandatory!";
+			 model = new ModelAndView("SignUp");
+			 model.addObject("displayContent", displayContent);
+		}
+		else if(member.getEmailId()!=null && !member.getEmailId().isEmpty() && !member.getEmailId().contains("uncc") && !member.getEmailId().contains("UNCC")){
+			displayContent="Invalid Email id!";
 			 model = new ModelAndView("SignUp");
 			 model.addObject("displayContent", displayContent);
 		}
@@ -117,14 +134,15 @@ public class SignUpController {
 		try{
 			ses=req.getSession(true);
 			ses.setAttribute("emailId", acct.getLoginId());
-			//ses.setAttribute("name", member.getmemberFirstName()+" "+ member.getMemberLastName());
+			
 		AccountDAO ad = new AccountDAO();
 		
 		acct = ad.selectLogin(acct);
-		if(acct!=null){
+		if(acct!=null && !acct.getLoginId().isEmpty()){
 			
 			if(acct.getAccountFlag()==1){
 				model = new ModelAndView("HomePage");
+				model.addObject("name", ses.getAttribute("name"));
 				
 			}
 		}

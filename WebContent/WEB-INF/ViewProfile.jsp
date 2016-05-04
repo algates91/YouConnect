@@ -13,7 +13,7 @@
 
 				<!-- Header -->
 					<header id="header">
-						<span class="avatar"><img src="resources/images/profilePicture.png" alt="" /></span>
+						<span class="avatar"><a href="homePageRedirect"><img src="/YouConnect-SocialNetworking/getProfilePic" alt="" /></a></span>
 						<ul class="icons">
 							<li><a href="/YouConnect-SocialNetworking/editprofile.html" class="fa fa-pencil-square-o"><span class="label"> Edit Profile</span></a></li>
 							<li><a href="#" class="fa fa-camera-retro"><span class="label"> Edit Photo</span></a></li>

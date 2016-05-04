@@ -5,7 +5,12 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 public class JunitTest1 {
-
+	@Before
+	public void setUp() throws Exception{
+		
+		
+		
+	}
 	@Test
 	public void test() {
 		

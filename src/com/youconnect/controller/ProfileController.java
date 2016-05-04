@@ -1,14 +1,31 @@
 package com.youconnect.controller;
 
+import java.awt.image.BufferedImage;
+import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+
+import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.youconnect.bean.AccountDesc;
@@ -37,6 +54,11 @@ public class ProfileController {
 		member =md.selectById(emailId);
 		acctDesc = ad.selectByIds(acctDesc);
 		ses.setAttribute("friendsemailId", emailId);
+		if(acctDesc==null){
+			acctDesc = new AccountDesc();
+			acctDesc.setFriendsFlag(0);
+			acctDesc.setSelfFlag(0);
+		}
 		/*if(acctDesc!=null ){
 			if(acctDesc.getSelfFlag()==1 && acctDesc.getFriendsFlag()==0){
 				
@@ -178,6 +200,59 @@ public class ProfileController {
 		ModelAndView model = new ModelAndView("UpdatePassword");
 
 		return model;
+	}
+	
+	@RequestMapping(value="/getProfilePic", method = RequestMethod.GET,headers="Accept=image/jpeg, image/jpg, image/png, image/gif")
+	public @ResponseBody byte[]  getProfilePic(Member member,HttpSession ses,HttpEntity<byte[]> requestEntity) {
+		member.setEmailId((String)ses.getAttribute("emailId"));
+		MemberDAO md = new MemberDAO();
+		member =md.selectById(member.getEmailId());
+		ses.setAttribute("name", member.getmemberFirstName()+" "+ member.getMemberLastName());
+		ByteArrayOutputStream bao = new ByteArrayOutputStream();
+		try {
+			InputStream is = new FileInputStream(member.getPicfilepath()); 
+			if(is==null){
+				is= new FileInputStream("resources/images/profilePicture.png"); 
+			}
+			 BufferedImage img = ImageIO.read(is);
+			 
+			 ImageIO.write(img, "jpg", bao);
+			   return bao.toByteArray();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return bao.toByteArray();
+	}
+	
+	@RequestMapping(value="/getFriendsProfilePic", method = RequestMethod.GET,headers="Accept=image/jpeg, image/jpg, image/png, image/gif")
+	public @ResponseBody byte[]  getFriendsProfilePic(Member member,HttpSession ses,HttpEntity<byte[]> requestEntity) {
+		member.setEmailId((String)ses.getAttribute("friendsemailId"));
+		MemberDAO md = new MemberDAO();
+		member =md.selectById(member.getEmailId());
+		ByteArrayOutputStream bao = new ByteArrayOutputStream();
+		try {
+			InputStream is = new FileInputStream(member.getPicfilepath()); 
+			if(is==null){
+				is= new FileInputStream("resources/images/profilePicture.png"); 
+			}
+			 BufferedImage img = ImageIO.read(is);
+			 
+			 ImageIO.write(img, "jpg", bao);
+			   return bao.toByteArray();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return bao.toByteArray();
 	}
 	
 }

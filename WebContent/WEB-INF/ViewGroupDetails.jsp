@@ -8,16 +8,6 @@
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<link rel="stylesheet" href="resources/css/main.css" />
-		<script language="javascript" type="text/javascript">
-
-/* function popitup(url) {
-	newwindow=window.open(url,'name','height=300,width=550');
-	if (window.focus) {newwindow.focus()}
-	return false;
-} */
-
-
-</script>
 	</head>
 	<body>
 
@@ -36,53 +26,40 @@
 
 				<!-- Main -->
 					<section id="main">
-				
-					<br>
-					<br>
-					<table style="width:100%" border=yes>
-				<tr>	
-					<td>Topic:     ${title}</td>
-					
-				</tr>
-				<tr><td>Content:<br>
-					${content} </td></tr>
-				</table>
-				
-				<br>
-				<br>
-			<h2>Replies:</h2>			
-				<c:forEach items="${forumLists}" var="map">
-				<c:if test="${map.getFriendName() !=null && !map.getFriendName().isEmpty()}">	         
-				<table>
-				<tr>
-					<td><h5>${map.getFriendName()} </h5> tells...</td>
-					 
-			        
-			         </tr>
-				<tr>
-					<td><h4>${map.getComments()}</h4></td>
-					 
-			        
-			         </tr>
-			         <br/>
-			         <br/>
-			   
-			     </table>
-			     </c:if>
-				</c:forEach>
-				<br>
-				<form name="reply" method="post" action="/YouConnect-SocialNetworking/SubmitForumReply">
-						
-						Reply:<textarea name="comments"rows="5" cols="5">
+					<form name="group" method="post" action="/YouConnect-SocialNetworking/GroupSubmit">
+						Title: <input type="text" name="title" />
+						<br>
+						<br>
+						Content:<textarea name="content"rows="10" cols="10">
 						</textarea>
 						<br>
 						<br>
 						<input type="submit" value="Submit" />	
-						<a href="/YouConnect-SocialNetworking/popupex.html" onclick="javascript:void window.open('/YouConnect-SocialNetworking/popupex.html','1461642804314','width=550,height=300,toolbar=0,menubar=0,location=0,status=1,scrollbars=1,resizable=1,left=0,top=0');return false;">Invite a Member outside UNCC network</a>
 					</form>
-					
-				
-					</section>
+					<br>
+					<br>
+					<table style="width:100%" border=yes>
+				<tr>	
+					<td><h2>Topic</h2></td>
+					<td><h2>Comments</h2></td>
+				<c:forEach items="${groupList}" var="map">
+			    <tr>	
+			        <td><a href="/YouConnect-SocialNetworking/viewGroup?groupId=${map.getGroupId()}&ownerEmailId=${map.getEmailId()}">${map.getTitle()}</a></td>
+					<td><h3>${map.getCommentCount()}</h3></td>			        
+			    <tr>
+				</c:forEach>
+				</table>
+				</section>
+				<form accept-charset="UTF-8" action="/YouConnect-SocialNetworking/uploadDocument.html" method="get">
+					<div>
+        				<input type="submit" name="uploadDocument" value="UploadDocument"/>
+    				</div>
+				</form>
+				<form accept-charset="UTF-8" action="/YouConnect-SocialNetworking/reportGroup.html" method="get">
+					<div>
+        				<input type="submit" name="reportGroup" value="Report"/>
+    				</div>
+				</form>
 
 			<footer class="global-footer" role="contentinfo">
 			  <div class="container">

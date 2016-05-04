@@ -107,6 +107,18 @@ public class MemberDAO {
 			session.close();
 		}
 	}
+	
+	public void updatePic(Member member){
+
+		SqlSession session = sqlSessionFactory.openSession();
+		
+		try {
+			session.update("Member.updatePic", member);
+			session.commit();
+		} finally {
+			session.close();
+		}
+	}
 
 	/**
 	 * Insert an instance of Member into the database.
