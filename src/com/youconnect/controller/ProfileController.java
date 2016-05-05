@@ -207,7 +207,7 @@ public class ProfileController {
 		member.setEmailId((String)ses.getAttribute("emailId"));
 		MemberDAO md = new MemberDAO();
 		member =md.selectById(member.getEmailId());
-		ses.setAttribute("name", member.getmemberFirstName()+" "+ member.getMemberLastName());
+		
 		ByteArrayOutputStream bao = new ByteArrayOutputStream();
 		try {
 			InputStream is = new FileInputStream(member.getPicfilepath()); 

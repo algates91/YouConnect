@@ -39,6 +39,18 @@ public class AccountDescDAO {
 			session.close();
 		}
 	}
+	@SuppressWarnings("unchecked")
+	public List<AccountDesc> selectOnlyFriendsByIds(AccountDesc acctDesc){
+
+		SqlSession session = sqlSessionFactory.openSession();
+		
+		try {
+			List<AccountDesc> acctDescLst =  session.selectList("AccountDescs.getOnlyFriendsById",acctDesc);
+			return acctDescLst;
+		} finally {
+			session.close();
+		}
+	}
 	
 	public void insertAccoutDesc(AccountDesc acctDesc){
 

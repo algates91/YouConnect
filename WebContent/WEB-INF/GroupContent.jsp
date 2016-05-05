@@ -3,7 +3,8 @@
 <%@ taglib  uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-			<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+	<head>
+		<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
   <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
   <style>    
@@ -13,14 +14,31 @@
       color: white;
       padding: 15px;
     }
+    div.checker span {
+  background-image: url(../img/sprite.png);
+}
   </style>
 		<link rel="stylesheet" href="resources/css/main.css" />
 		<script>
 		function Reload() {
             window.location.reload();
          }
-
+		
+		function selected(t){
+			
+			document.group.groupType.value=	t.value;
+						
+		}
+		function editMember(){
+			window.location="/YouConnect-SocialNetworking/updateMembers?groupId=document.group.groupId.value&groupOwner=document.group.groupOwner.value&groupType=document.group.groupType.value&title=document.group.title.value";
+			
+			
+		} 
+   		
+   	
 		</script>
+	
+	</head>
 	<body>
 <nav class="navbar navbar-inverse">
   <div class="container-fluid">
@@ -35,8 +53,8 @@
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav">
         <li ><a href="homePageRedirect">Home</a></li>
-        <li><a href="/YouConnect-SocialNetworking/groupView.html">Group</a></li>
-		<li><a href="/YouConnect-SocialNetworking/viewFriends">Friends</a></li>
+        <li class="active"><a href="/YouConnect-SocialNetworking/groupView.html">Group</a></li>
+		<li ><a href="/YouConnect-SocialNetworking/viewFriends">Friends</a></li>
 		<li><a href="/YouConnect-SocialNetworking/forumView">Forum</a></li>
 		<li><a href="#">Documents</a></li>
       </ul>
@@ -54,67 +72,76 @@
         <li><a href="/YouConnect-SocialNetworking/editprofile.html"><img src="/YouConnect-SocialNetworking/getProfilePic" alt=""  height="50" width="50"/> My Account</a></li>
       </ul>
     </div>
-   <h3> Hello <i> ${name} </i>how are you doing today? </h3>
+   <h3> <i> ${name} </i>, This page you can view your groups </h3>
   </div>
 </nav>
-
 		<!-- Wrapper -->
 			<div id="wrapper">
 
 				<!-- Header -->
 					<header id="header">
 						<span class="avatar"><a href="homePageRedirect"><img src="/YouConnect-SocialNetworking/getProfilePic" alt="" /></a></span>
-					<ul class="icons">
+				<ul class="icons">
 							<li><a href="/YouConnect-SocialNetworking/editprofile.html" class="fa fa-pencil-square-o"><span class="label"> View/Edit Profile</span></a></li>
 							<li><a href="/YouConnect-SocialNetworking/editPhoto" onclick="javascript:void window.open('/YouConnect-SocialNetworking/editPhoto','1461642804314','width=550,height=300,toolbar=0,menubar=0,location=0,status=1,scrollbars=1,resizable=1,left=0,top=0');return false; if (window.focus) {newwindow.focus()}" class="fa fa-camera-retro"><span class="label"> Edit Photo</span></a></li>
 							<li><a href="/YouConnect-SocialNetworking/logOut" class="fa fa-sign-out"><span class="label"> Sign Out</span></a></li>
 						</ul>
-						<form method="get" action="/YouConnect-SocialNetworking/results.html">
-							<div>
-								<input type="text" name="searchstring"/>
-								<br/>
-								<input type="submit" value="Search" />
-							</div>
-						</form>
-					</header>
+						</header>
 
 				<!-- Main -->
 					<section id="main">
-
-							<h2>YouConnect members list </h2>
-	
-								<table style="width:100%" border=yes>
-				<tr>	
-					<td><h2>Name</h2></td>
-					<td><h2>EmailId</h2></td>
-				<!-- 	<td><h2>Title</h2></td>
-					<td><h2>Author</h2></td>
-					<td><h2>Quantity</h2></td>
-					<td><h2>Price</h2></td>
-					<td><h2>Year of Publication</h2></td>
-					<td><h2>BuyThis</h2></td> -->
-				</tr>
-				<c:forEach items="${al}" var="map">
-			    <tr>	
-			        <td><a href="/YouConnect-SocialNetworking/viewProfile?emailId=${map.getEmailId()}">${map.getMemberLastName()}, ${map.getmemberFirstName()}</a></td>
-					<td><h3>${map.getEmailId()}</h3></td>
-					 
-			        
-			         <tr>
-				</c:forEach>
-				</table>
-
+					<form name="groupView" method="post" action="/YouConnect-SocialNetworking/postContent">
+						Group ID: <h3><input type="text" name="groupId" value="${groupId} " readonly></h3>
+						Group Name: <h3><input type="text" name="title" value="${title}" readonly></h3>
+						Group Owner: <h3><input type="text" name="owner" value="${owner}" readonly></h3>
+						Group Type: <h3><input type="text" name="groupType" value="${groupType}" readonly></h3><br><br>
+						<input type="hidden" name="groupOwner" value="${ownerId}" >
+						<table border=yes>
+						<tr><td>
+						Members:
+						
+							<table border=yes>
+							<c:forEach items="${mem}" var="map">
+								<tr>
+									<td>${map}</td>
+								</tr>
+							</c:forEach>
+							
+							</table>
+							<!-- <input type="button" value="Edit Member" onclick="editMember()"> -->
+							</td>
+							
+							</tr>
+							
+						</table>
+						<br><br>
+						content:
+						<table border=yes>
+							<c:forEach items="${al}" var="map">
+							<c:if test="${map.getContent() !=null && !map.getContent().isEmpty() && map.getParticipants() !=null && !map.getParticipants().isEmpty()}">
+								<tr>
+									<td><span><h3>${map.getParticipants()} said,</h3> </span><br>
+										<h3><i>${map.getContent()}</i></h3> 
+									</td>
+								</tr>
+								</c:if>
+							</c:forEach>
+							
+						</table>
+						<br><br>
+						<textarea placeholder="post a content" name="content"rows="5" cols="5" ></textarea><br><br>
+						<a href="/YouConnect-SocialNetworking/uploadGrp?groupId=document.group.groupId.value&groupOwner=document.group.groupOwner.value&groupType=document.group.groupType.value&title=document.group.title.value" onclick="javascript:void window.open('/YouConnect-SocialNetworking/uploadGrp?groupId=document.group.groupId.value&groupOwner=document.group.groupOwner.value&groupType=document.group.groupType.value&title=document.group.title.value','1461642804314','width=550,height=300,toolbar=0,menubar=0,location=0,status=1,scrollbars=1,resizable=1,left=0,top=0');return false; if (window.focus) {newwindow.focus()}" > <B>Upload File</B></a><br><br>
+						<input type="submit" name="Post Content" value="Post Content">
+					</form>
+		
+			
 					</section>
 
-			
+
 
 			</div>
 
-		<!-- Scripts -->
-			<script src="resources/js/jquery.min.js"></script>
-			<script src="resources/js/jquery.poptrox.min.js"></script>
-			<script src="resources/js/skel.min.js"></script>
-			<script src="resources/js/main.js"></script>
+		
 
 	</body>
 </html>

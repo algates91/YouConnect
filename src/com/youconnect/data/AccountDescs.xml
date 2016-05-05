@@ -29,6 +29,13 @@
 	 
     </select>
     
+    <select id="getOnlyFriendsById" parameterType="AccountDesc" resultMap="result">
+    	
+		SELECT mem.first_name_s,mem.last_name_s,ad.friend_id FROM ACCOUNTDESC ad,members mem
+		 WHERE  mem.email_id=ad.friend_id and ad.email_id=#{emailId} and ad.self_flag=1 and ad.friends_flag=1;
+	 
+    </select>
+    
 	<insert id="insert" parameterType="AccountDesc">
 		INSERT INTO ACCOUNTDESC (   email_id ,
 		  friend_id,

@@ -12,8 +12,7 @@ import org.apache.ibatis.session.SqlSessionFactoryBuilder;
  * MyBatis Connection Factory, which reads the configuration data from a XML file.
  * 
  * @author Prasanna Kumar Rajendran
- * http://loianegroner.com (English)
- * http://loiane.com (Portuguese)
+
  */
 public class MyBatisConnectionFactory {
 

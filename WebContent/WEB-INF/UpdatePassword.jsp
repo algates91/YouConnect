@@ -3,50 +3,80 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<title>YouConnect
-	:EditPassword
-	</title>
-	<meta charset="utf-8"/>
-	
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-	<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
-	<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+  <style>    
+    /* Set black background color, white text and some padding */
+    footer {
+      background-color: #555;
+      color: white;
+      padding: 15px;
+    }
+  </style>
+		<link rel="stylesheet" href="resources/css/main.css" />
+		<script>
+		function Reload() {
+            window.location.reload();
+         }
 
-	<link href="https://s0.assets-yammer.com/assets/resources/yam-application-7c3e2c0eadd794a4e9033e558ba59c76.css" media="screen, projection, print" rel="stylesheet" type="text/css" />
-	<link href="https://s0.assets-yammer.com/assets/resources/yam-yamkit-ng-20dc3db842399d4842acc796b0b83b41.css" media="screen, projection, print" rel="stylesheet" type="text/css" />
-	<link href="https://s0.assets-yammer.com/assets/resources/yam-feeds-e4dd05000c5e4c20f6c0b5e95356a86e.css" media="screen, projection, print" rel="stylesheet" type="text/css" />
-	<link href="https://s0.assets-yammer.com/assets/resources/yam-common-ui-fbe11afcd4a9a5daa8f4658b5cb4be57.css" media="screen, projection, print" rel="stylesheet" type="text/css" />
-	<link href="https://s0.assets-yammer.com/assets/resources/yam-workfeed-app-a0a4e1932aaba50d2f3ae5443bcf3759.css" media="screen, projection, print" rel="stylesheet" type="text/css" />
-	<link href="https://s0.assets-yammer.com/assets/resources/yam-pages-ad5e5eb86809ef5ea82aa7f045a4525d.css" media="screen, projection, print" rel="stylesheet" type="text/css" />
-	<link href="https://s0.assets-yammer.com/assets/yam-requirejs-complete-302ee9e92e848c68219b749b338eac39.css" media="screen" rel="stylesheet" type="text/css" />
-	<link href="https://s0.assets-yammer.com/assets/resources/yam-signup-f77683ce25f316a537debfb9012a3c20.css" media="screen" rel="stylesheet" type="text/css" />
-    <link href="https://s0.assets-yammer.com/assets/resources/yam-public-0dc15da2f7f42f41bad2c11cd33e5848.css" media="screen, projection, print" rel="stylesheet" type="text/css" />
-    <link href="https://s0.assets-yammer.com/assets/resources/yam-common-ui-fbe11afcd4a9a5daa8f4658b5cb4be57.css" media="screen, projection, print" rel="stylesheet" type="text/css" />
-  
-  	  <link href="https://s0.assets-yammer.com/assets/yam-requirejs-public-main-06dc7e69a73afa6731d6c09c01221698.css" media="screen" rel="stylesheet" type="text/css" />
+		</script>
 </head>
 <body>
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>                        
+      </button>
+      <a class="navbar-brand" href="#">You Connect</a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="homePageRedirect">Home</a></li>
+        <li><a href="/YouConnect-SocialNetworking/groupView.html">Group</a></li>
+		<li><a href="/YouConnect-SocialNetworking/viewFriends">Friends</a></li>
+		<li><a href="/YouConnect-SocialNetworking/forumView">Forum</a></li>
+		<li><a href="#">Documents</a></li>
+      </ul>
+      <form class="navbar-form navbar-right" role="search" method="get" action="/YouConnect-SocialNetworking/results.html">
+        <div class="form-group input-group">
+          <input type="text" name="searchstring" class="form-control" placeholder="Search..">
+          <span class="input-group-btn">
+            <button class="btn btn-default" type="submit" value="Search" >
+              <span class="glyphicon glyphicon-search"></span>
+            </button>
+          </span>        
+        </div>
+      </form>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="/YouConnect-SocialNetworking/editprofile.html"><img src="/YouConnect-SocialNetworking/getProfilePic" alt=""  height="50" width="50"/> My Account</a></li>
+      </ul>
+    </div>
+   <h3> <i> ${name} </i>, Here you can change your account password</h3>
+  </div>
+</nav>
 
 <div class="wrapper yj-clearfix">
-    <div class="global-header global-header-ps3" role="banner">
-  		<div class="container">
-    		<div class="row">
-          		<a href="/YouConnect-SocialNetworking/welcome.html"><img alt="YouConnect : The UNCC social networking site" id="logo" src="http://i.imgur.com/yEPWwST.png" title="What are you working on?" width="600" height="100" /></a>
-    		</div>    
-  		</div>
-	</div>
+
     <div class="container">
 		<div class="edit-password">
-  			<form accept-charset="UTF-8" action="/YouConnect-SocialNetworking/submitPassword.html" method="post">
+  			<form accept-charset="UTF-8" action="/YouConnect-SocialNetworking/submitPassword" method="post">
   			
-  			${headerMessage} 
+  			
+  			
+
+  			
 				<br>
   				<br>
+  				<h2><font color="red"> ${headerMessage} </font></h2>
  				<div class="row login-password">
-          			<label for="user_password">New Password*</label><br>
-          			<input aria-describedby="pw-str pw-rules" aria-required="true" autocomplete="off" class="yj-validate password wider" id="passWord" name="passWord" size="30" type="password" /><br>
-		  			<label for="user_password">Re-type Password*</label><br>
-          			<input aria-describedby="pw-str pw-rules" aria-required="true" autocomplete="off" class="yj-validate password wider" id="passWord2" name="passWord2" size="30" type="password" />
+          			
+          			<input placeholder ="New Password*" aria-describedby="pw-str pw-rules" aria-required="true" autocomplete="off" class="yj-validate password wider" id="passWord" name="passWord" size="30" type="password" /><br>
+		  			<br>
+          			<input placeholder ="Re-type Password*" aria-describedby="pw-str pw-rules" aria-required="true" autocomplete="off" class="yj-validate password wider" id="passWord2" name="passWord2" size="30" type="password" />
           		<br />
           		<div id="pw-rules" class="password-rules">
             		<span class="quiet">

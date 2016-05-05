@@ -21,10 +21,17 @@
 
 		<!-- Wrapper -->
 			<div id="wrapper">
+			<font color="red">${displayContent}</font>
 			<br>
 			Select a file to Upload<br><br>
-		<form name="imageSelect" method ="post" action="/YouConnect-SocialNetworking/doUpload.html" enctype="multipart/form-data" >
+			
+		<form name="groupUpload" method ="post" action="/YouConnect-SocialNetworking/upload2Grp" enctype="multipart/form-data" >
+		   <input type="text" placeholder="File Name" name="fileName"><br>
 		    <input type='file' name='file'><br><br>
+		    <input type="hidden"  name="groupId" value=${groupId }>
+		    <input type="hidden"  name="groupOwner" value=${groupOwner }>
+		    <input type="hidden" name="title" value=${title }>
+		    <input type="hidden"  name="groupType" value=${groupType }>
 		    <input type='submit' name='upload_btn' value='upload'   >
 		    <input type='submit' value='Close' onclick="loadImage()">
 		    <input type="hidden" name="close">

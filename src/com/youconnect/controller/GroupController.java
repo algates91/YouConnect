@@ -1,110 +1,182 @@
 package com.youconnect.controller;
 
+import java.util.HashSet;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.youconnect.bean.AccountDesc;
+import com.youconnect.bean.GroupDetails;
 import com.youconnect.dao.AccountDescDAO;
+import com.youconnect.dao.GroupDAO;
+import com.youconnect.dao.MemberDAO;
 
 @Controller
 public class GroupController {
 	
 	@RequestMapping(value="/groupView.html", method = RequestMethod.GET)
-	public ModelAndView getGroupPage() {
-
+	public ModelAndView getGroupPage(@ModelAttribute("acctDesc") AccountDesc acctDesc, HttpSession ses) {
+		
+		GroupDetails groupDetails = new GroupDetails();
+		acctDesc.setEmailId((String)ses.getAttribute("emailId"));
+		groupDetails.setGroupOwner((String)ses.getAttribute("emailId"));
+		AccountDescDAO ad = new AccountDescDAO();
+		List<AccountDesc> al= ad.selectOnlyFriendsByIds(acctDesc);
+		
+		
+		GroupDAO gd = new GroupDAO();
+		List<GroupDetails> gl = gd.selectByIds(groupDetails);
 		ModelAndView model = new ModelAndView("TempGroupView");
+		model.addObject("al", al);
+		model.addObject("gl", gl);
 
 		return model;
 	}
 	
-	@RequestMapping(value="/viewGroups.html", method = RequestMethod.GET)
-	public ModelAndView getViewGroupsPage(HttpSession ses) {
-
-//		StringBuffer sb= new StringBuffer();
-//		//GroupDescDAO gdd = new GroupDescDAO();
-//		List<AccountDesc> grpdesclst= ad.selectFriendsByIds(ses.getAttribute("emailId"));
-//		int count=0;
-//		sb.append("<center><h2>Groups List</h2></center>");
-//		sb.append("<table>");
-//		for(AccountDesc m: acctdesclst){
-//			if(m.getSelfFlag()==1 && m.getFriendsFlag()==1){
-//				count++;
-//			sb.append("<tr>");
-//				sb.append("<td>"+ Integer.toString(count)+"</td>");
-//				
-//				sb.append("<td> ") ;
-//				sb.append("<a href="+"/YouConnect-SocialNetworking/viewProfile?emailId="+m.getFriendId()+">");
-//				sb.append(m.getLastName()+", "+m.getFirstName());	
-//				sb.append("</a>");
-//				sb.append(("</td>"));
-//			sb.append("</tr>");
-//			
-//			
-//		}
-//		}
-//		if(count<=0){
-//			sb.append("<tr> No Friends to list at this time. </tr>");
-//		}
-//		sb.append("</table>");
-//		
-//		 count=0;
-//		sb.append("<center><h2>Request Pending</h2></center>");
-//		sb.append("<table>");
-//		for(AccountDesc m: acctdesclst){
-//			if(m.getSelfFlag()==1 && m.getFriendsFlag()==0){
-//				count++;
-//			sb.append("<tr>");
-//				sb.append("<td>"+ Integer.toString(count)+"</td>");
-//				
-//				sb.append("<td> ") ;
-//				sb.append("<a href="+"/YouConnect-SocialNetworking/viewProfile?emailId="+m.getFriendId()+">");
-//				sb.append(m.getLastName()+", "+m.getFirstName());	
-//				sb.append("</a>");
-//				sb.append(("</td>"));
-//			sb.append("</tr>");
-//			
-//			
-//		}
-//		}
-//		if(count<=0){
-//			sb.append("<tr> No Request pending at this time. </tr>");
-//		}
-//		sb.append("</table>");
-//		
-//		count=0;
-//		sb.append("<center><h2>Awaiting Response</h2></center>");
-//		sb.append("<table>");
-//		for(AccountDesc m: acctdesclst){
-//			if(m.getSelfFlag()==0 && m.getFriendsFlag()==1){
-//				count++;
-//			sb.append("<tr>");
-//				sb.append("<td>"+ Integer.toString(count)+"</td>");
-//				
-//				sb.append("<td> ") ;
-//				sb.append("<a href="+"/YouConnect-SocialNetworking/viewProfile?emailId="+m.getFriendId()+">");
-//				sb.append(m.getLastName()+", "+m.getFirstName());	
-//				sb.append("</a>");
-//				sb.append(("</td>"));
-//			sb.append("</tr>");
-//			
-//		}
-//			
-//		}
-//		if(count<=0){
-//			sb.append("<tr> No Friends who are awaiting your response at this time. </tr>");
-//		}
-//		sb.append("</table>");
-//		//md.insert(member);
-		ModelAndView model = new ModelAndView("ViewGroupDetails");
-		//model.addObject("displayContent", sb.toString());
+	@RequestMapping(value="/createGroup", method = RequestMethod.POST)
+	public ModelAndView createGroup(@ModelAttribute("groupDetails") GroupDetails groupDetails, HttpSession ses) {
+		
+		groupDetails.setGroupOwner((String)ses.getAttribute("emailId"));
+		
+		GroupDAO ad = new GroupDAO();
+		int id =ad.insertGroupDetails(groupDetails);
+		groupDetails.setGroupId(id);
+		ad.insertGroupDescDetails(groupDetails);
+		
+		//ModelAndView model = new ModelAndView("TempGroupView");
+		return new ModelAndView("redirect:" + "/groupView.html");
+	}
+	
+	
+	@RequestMapping(value="/viewGroup", method = RequestMethod.GET)
+	public ModelAndView getViewGroupsPage(HttpSession ses, HttpServletRequest req,GroupDetails groupDetails) {
+		String title = null;
+		int groupId =0;
+		String owner = null;
+		String groupType=null;
+		HashSet<String> mem = new HashSet<String>();
+		groupDetails.setGroupId((Integer.parseInt(req.getParameter("groupId"))));
+		groupDetails.setGroupOwner((req.getParameter("ownerEmailId")));
+		GroupDAO grp = new GroupDAO();
+		MemberDAO member = new MemberDAO();
+		List<GroupDetails> al=grp.selectById(groupDetails);
+		if(al!=null && al.size()>0){
+			title= al.get(0).getTitle();
+			groupId= al.get(0).getGroupId();
+			groupType = al.get(0).getGroupType();
+			owner = member.selectById(groupDetails.getGroupOwner()).getmemberFirstName();
+		}
+		for(GroupDetails gd: al){
+			mem.add(gd.getParticipants());
+		}
+		ModelAndView model = new ModelAndView("GroupContent");
+		model.addObject("al", al);
+		model.addObject("title", title);
+		model.addObject("mem", mem);
+		model.addObject("groupId", groupId);
+		model.addObject("owner", owner);
+		model.addObject("groupType", groupType);
+		model.addObject("ownerId",groupDetails.getGroupOwner());
+		
+		return model;
+	}
+	
+	
+	
+	@RequestMapping(value="/postContent", method = RequestMethod.POST)
+	public ModelAndView getPostContent(@ModelAttribute("groupDetails") GroupDetails groupDetails,HttpSession ses, HttpServletRequest req) {
+		String title = null;
+		int groupId =0;
+		String owner = null;
+		String groupType=null;
+		
+		GroupDAO grp = new GroupDAO();
+		groupDetails.setParticipants((String)ses.getAttribute("emailId"));
+		grp.insertGroupDescDetail(groupDetails);
+		
+		MemberDAO member = new MemberDAO();
+		List<GroupDetails> al=grp.selectById(groupDetails);
+		HashSet<String> mem = new HashSet<String>();
+		if(al!=null && al.size()>0){
+			title= al.get(0).getTitle();
+			groupId= al.get(0).getGroupId();
+			groupType = al.get(0).getGroupType();
+			owner = member.selectById(groupDetails.getGroupOwner()).getmemberFirstName();
+		}
+		for(GroupDetails gd: al){
+			mem.add(gd.getParticipants());
+		}
+		ModelAndView model = new ModelAndView("GroupContent");
+		model.addObject("al", al);
+		model.addObject("mem", mem);
+		model.addObject("title", title);
+		model.addObject("groupId", groupId);
+		model.addObject("owner", owner);
+		model.addObject("groupType", groupType);
+		model.addObject("ownerId",groupDetails.getGroupOwner());
+		
+		return model;
+		
+		
+	}
+	
+	
+	@RequestMapping(value="/updateMembers", method = RequestMethod.GET)
+	public ModelAndView getupdateMembers(HttpSession ses, HttpServletRequest req,GroupDetails groupDetails) {
+		String title = null;
+		int groupId =0;
+		String owner = null;
+		String groupType=null;
+		HashSet<String> mem = new HashSet<String>();
+		groupDetails.setGroupId((Integer.parseInt(req.getParameter("groupId"))));
+		groupDetails.setGroupOwner((req.getParameter("groupOwner")));
+		groupDetails.setTitle((req.getParameter("title")));
+		groupDetails.setGroupType((req.getParameter("groupType")));
+		GroupDAO grp = new GroupDAO();
+		MemberDAO member = new MemberDAO();
+		List<GroupDetails> al=grp.selectById(groupDetails);
+		if(al!=null && al.size()>0){
+			title= al.get(0).getTitle();
+			groupId= al.get(0).getGroupId();
+			groupType = al.get(0).getGroupType();
+			owner = member.selectById(groupDetails.getGroupOwner()).getmemberFirstName();
+		}
+		for(GroupDetails gd: al){
+			mem.add(gd.getParticipants());
+		}
+		ModelAndView model = new ModelAndView("GroupContent");
+		model.addObject("al", al);
+		model.addObject("title", title);
+		model.addObject("mem", mem);
+		model.addObject("groupId", groupId);
+		model.addObject("owner", owner);
+		model.addObject("groupType", groupType);
+		model.addObject("ownerId",groupDetails.getGroupOwner());
 		
 		return model;
 	}
 
+	
+	
+	@RequestMapping(value="/uploadGrp", method = RequestMethod.GET)
+	
+	public ModelAndView doChangePic(HttpSession ses, HttpServletRequest req){
+		
+		
+		ModelAndView model = new ModelAndView("GroupUpload");
+		model.addObject("groupId", req.getAttribute("groupId"));
+		model.addObject("groupOwner", req.getAttribute("groupOwner"));
+		model.addObject("groupType", req.getAttribute("groupType"));
+		model.addObject("title", req.getAttribute("title"));
+		return model;
+		
+		
+	}
 }

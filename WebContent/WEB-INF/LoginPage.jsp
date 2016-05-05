@@ -61,7 +61,7 @@
 
   <form accept-charset="UTF-8" action="/YouConnect-SocialNetworking/submitLogin" method="post">
 
-
+<h2><font color="red"> ${headerMessage} </font></h2>
       
     <span>  <input placeholder="Email Id*" aria-required="true" id="LoginId" name="LoginId" size="30" type="text" /></span>
  

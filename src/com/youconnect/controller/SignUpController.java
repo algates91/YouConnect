@@ -64,6 +64,7 @@ public class SignUpController {
 		
 		String displayContent=null;
 		ModelAndView model =null;
+		MemberDAO md = new MemberDAO();
 		try{
 		if(member.getEmailId()!=null && member.getEmailId().isEmpty()){
 			displayContent="EmailId is mandatory!";
@@ -106,8 +107,9 @@ public class SignUpController {
 			
 			Account acct=populateAccountBean(member);
 			ses.setAttribute("emailId", member.getEmailId());
+			
 			ses.setAttribute("name", member.getmemberFirstName()+" "+ member.getMemberLastName());
-			MemberDAO md = new MemberDAO();
+			
 			md.insert(member);
 			md.insertAccout(acct);
 			model = new ModelAndView("HomePage");
@@ -130,7 +132,8 @@ public class SignUpController {
 	@RequestMapping(value="/submitLogin", method = RequestMethod.POST)
 	public ModelAndView submitLoginForm(@ModelAttribute("acct") Account acct, HttpSession ses,HttpServletRequest req) {
 		ModelAndView model=null;
-		
+		MemberDAO md = new MemberDAO();
+		Member member = new Member();
 		try{
 			ses=req.getSession(true);
 			ses.setAttribute("emailId", acct.getLoginId());
@@ -141,6 +144,8 @@ public class SignUpController {
 		if(acct!=null && !acct.getLoginId().isEmpty()){
 			
 			if(acct.getAccountFlag()==1){
+				member =md.selectById(acct.getLoginId());
+				ses.setAttribute("name", member.getmemberFirstName()+" "+ member.getMemberLastName());
 				model = new ModelAndView("HomePage");
 				model.addObject("name", ses.getAttribute("name"));
 				
@@ -234,10 +239,16 @@ public class SignUpController {
 				acct.setLoginId(request.getSession().getAttribute("emailId").toString());
 				acct.setPassWord(request.getParameter("passWord"));
 				ad.updatePassword(acct);
-				model = new ModelAndView("HomePage");
+				model = new ModelAndView("UpdatePassword");
 				model.addObject("headerMessage","Password updated!");
 			}
-			else{
+			if((pass1!=null && pass1.isEmpty()) || (pass2!=null && pass2.isEmpty())){
+				
+				model = new ModelAndView("UpdatePassword");
+				model.addObject("headerMessage","Password can't be empty!");
+				
+			}
+			else if(!pass1.equals(pass2)){
 				
 				model = new ModelAndView("UpdatePassword");
 				model.addObject("headerMessage","Passwords do not match! Please try again");			
