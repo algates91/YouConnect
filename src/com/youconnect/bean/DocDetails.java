@@ -1,16 +1,13 @@
 package com.youconnect.bean;
 
-public class GroupDetails {
+public class DocDetails {
 	
 
 	
 	private String title;
 	private String groupOwner;
-	private String content;
 	private String participants;
-	private String groupType;
-	private int id;
-	private String groupId;
+	private String docId;
 	private String contentURL;
 
 	public String getTitle() {
@@ -37,37 +34,7 @@ public class GroupDetails {
 		this.participants = participants;
 	}
 
-	public String getGroupType() {
-		return groupType;
-	}
-
-	public void setGroupType(String groupType) {
-		this.groupType = groupType;
-	}
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	public String getContent() {
-		return content;
-	}
-
-	public void setContent(String content) {
-		this.content = content;
-	}
-
-	public String getGroupId() {
-		return groupId;
-	}
-
-	public void setGroupId(String groupId) {
-		this.groupId = groupId;
-	}
+	
 
 	public String getContentURL() {
 		return contentURL;
@@ -75,6 +42,14 @@ public class GroupDetails {
 
 	public void setContentURL(String contentURL) {
 		this.contentURL = contentURL;
+	}
+
+	public String getDocId() {
+		return docId;
+	}
+
+	public void setDocId(String docId) {
+		this.docId = docId;
 	}
 
 

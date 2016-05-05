@@ -72,7 +72,7 @@
         <li class="active"><a href="/YouConnect-SocialNetworking/groupView.html">Group</a></li>
 		<li ><a href="/YouConnect-SocialNetworking/viewFriends">Friends</a></li>
 		<li><a href="/YouConnect-SocialNetworking/forumView">Forum</a></li>
-		<li><a href="#">Documents</a></li>
+		<li><a href="/YouConnect-SocialNetworking/docView">Documents</a></li>
       </ul>
       <form class="navbar-form navbar-right" role="search" method="get" action="/YouConnect-SocialNetworking/results.html">
         <div class="form-group input-group">
@@ -114,10 +114,10 @@
 						
 							
 							  <select id ="grouptypes" size=4 onchange="selected(this)">
-								<option value="Study based" >Study based</option>
-								<option value="Activity based" > Activity based</option>
-								<option value="Batch based" > Batch based</option>
-								<option value="Course based" >Course based</option>
+								<option value="Studybased" >Study based</option>
+								<option value="Activitybased" > Activity based</option>
+								<option value="Batchbased" > Batch based</option>
+								<option value="Coursebased" >Course based</option>
 								</select>
 							
 							

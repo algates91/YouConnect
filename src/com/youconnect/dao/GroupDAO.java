@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 
 import com.youconnect.bean.AccountDesc;
+import com.youconnect.bean.DocDetails;
 import com.youconnect.bean.Forum;
 import com.youconnect.bean.GroupDetails;
 
@@ -35,7 +36,17 @@ public class GroupDAO {
 			session.close();
 		}
 	}
-	
+	public List<DocDetails> selectDocByIds(GroupDetails groupDetails){
+
+		SqlSession session = sqlSessionFactory.openSession();
+		
+		try {
+			List<DocDetails> list =  session.selectList("Group.getDocByIds",groupDetails);
+			return list;
+		} finally {
+			session.close();
+		}
+	}
 	public List<GroupDetails> selectById(GroupDetails groupDetails){
 
 		SqlSession session = sqlSessionFactory.openSession();
@@ -95,6 +106,26 @@ public class GroupDAO {
 			for(String prt:partis){
 				group.setParticipants(prt);
 				session.insert("Group.insertDescGroup",group) ;
+			}
+			session.commit();
+			
+		} finally {
+			session.close();
+		}
+		
+	}
+	
+	public void insertDocDescDetails(GroupDetails group){
+
+		SqlSession session = sqlSessionFactory.openSession();
+		String parti = group.getParticipants();
+		String[] partis = parti.split(",");
+		try {
+			for(String prt:partis){
+				prt=prt.replace("[", "");
+				prt=prt.replace("]", "");
+				group.setParticipants(prt);
+				session.insert("Group.insertDocGroup",group) ;
 			}
 			session.commit();
 			

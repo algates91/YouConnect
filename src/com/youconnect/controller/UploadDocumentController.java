@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.youconnect.bean.DocDetails;
 import com.youconnect.bean.GroupDetails;
 import com.youconnect.bean.Member;
 import com.youconnect.dao.GroupDAO;
@@ -103,7 +104,7 @@ public class UploadDocumentController {
 		String uploadRootPath="/YouConnect-SocialNetworking/WebContent/resources/upload";
         String close = (String)request.getAttribute("close");
         String title = null;
-		int groupId =0;
+		String groupId =null;
 		String owner = null;
 		String groupType=null;
         System.out.println("uploadRootPath=" + uploadRootPath);
@@ -133,17 +134,19 @@ public class UploadDocumentController {
                     // Create the file on server
                     serverFile = new File(uploadRootDir.getAbsolutePath()
                             + File.separator + request.getParameter("fileName"));
-                    member.setPicfilepath(String.valueOf(serverFile));
+                   
                     // Stream to write data to file in server.
                     BufferedOutputStream stream = new BufferedOutputStream(
                             new FileOutputStream(serverFile));
                     stream.write(bytes);
                     stream.close();
                     
-                    
+                    groupDetails.setContentURL(String.valueOf(serverFile)+".txt");
                     groupDetails.setContent(request.getParameter("fileName"));
                     groupDetails.setParticipants((String)ses.getAttribute("emailId"));
                     grp.insertGroupDescDetail(groupDetails);
+                    groupDetails.setParticipants((String)ses.getAttribute("friendsIdDoc"));
+                    grp.insertDocDescDetails(groupDetails);
                     System.out.println("Write file: " + serverFile);
                 } catch (Exception e) {
                     System.out.println("Error Write file: " + name);
@@ -185,6 +188,20 @@ public class UploadDocumentController {
 
 		return model;
 	}
+	
+	@RequestMapping(value="/docView", method = RequestMethod.GET)
+	public ModelAndView getDocView(@ModelAttribute("groupDetails") GroupDetails groupDetails,HttpServletRequest request, HttpSession ses) {
+		
+		GroupDAO gd = new GroupDAO();
+		groupDetails.setGroupOwner((String)ses.getAttribute("emailId"));
+		List<DocDetails> dd=gd.selectDocByIds(groupDetails);
 
+		ModelAndView model = new ModelAndView("DocumentView");
+		model.addObject("dd", dd);
+
+		return model;
+	}
+	
+	
 
 }

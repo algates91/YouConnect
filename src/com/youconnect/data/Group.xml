@@ -9,16 +9,31 @@
 	    <result property="title" column="group_title"/>
 	    <result property="groupOwner" column="group_owner"/>
 	    <result property="content" column="content"/>
+	    <result property="contentURL" column="content_url"/>
 	    <result property="groupType" column="group_type"/>
 	    <result property="id" column="id"/>
 	    <result property="groupId" column="group_id"/>
 	    <result property="participants" column="participant_id"/>
 
     </resultMap>
+    
+    <resultMap id="resultDoc" type="DocDetails">
+	    <result property="title" column="title"/>
+	    <result property="groupOwner" column="email_id"/>
+	    <result property="contentURL" column="content_url"/>
+	    <result property="docId" column="doc_id"/>
+	    <result property="participants" column="friend_mailid"/>
+
+    </resultMap>
 	
     <select id="getByIds" parameterType="GroupDetails" resultMap="result">
     	select distinct group_id,group_title,group_type,group_owner  from groupsdesc where  
     	group_owner=#{groupOwner} or participant_id= #{groupOwner} order by group_id;
+    </select>
+    
+    <select id="getDocByIds" parameterType="DocDetails" resultMap="resultDoc">
+    	select distinct doc_id,title,email_id,doc_id,friend_mailid,content_url  from documents where  
+    	email_id=#{groupOwner} or friend_mailid= #{groupOwner} order by doc_id;
     </select>
     
     <select id="getById" parameterType="GroupDetails" resultMap="result">
@@ -47,8 +62,13 @@
 		VALUES (#{title}, #{groupOwner}, #{groupType});
 	</insert>
 	<insert id="insertDescGroup" parameterType="GroupDetails">
-		INSERT INTO groupsdesc (   participant_id ,group_id,group_title,content,group_owner,group_type) 
-		VALUES (#{participants}, #{groupId}, #{title}, #{content},#{groupOwner},#{groupType});
+		INSERT INTO groupsdesc (   participant_id ,group_id,group_title,content,group_owner,group_type,content_url) 
+		VALUES (#{participants}, #{groupId}, #{title}, #{content},#{groupOwner},#{groupType},#{contentURL});
+	</insert>
+	
+		<insert id="insertDocGroup" parameterType="GroupDetails">
+		INSERT INTO documents (   email_id ,friend_mailid,title,content_url) 
+		VALUES (#{groupOwner}, #{participants}, #{title}, #{contentURL});
 	</insert>
 		<update id="update" parameterType="AccountDesc">
 	  	UPDATE ACCOUNTDESC

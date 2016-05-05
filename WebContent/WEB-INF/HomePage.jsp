@@ -42,7 +42,7 @@
         <li><a href="/YouConnect-SocialNetworking/groupView.html">Group</a></li>
 		<li><a href="/YouConnect-SocialNetworking/viewFriends">Friends</a></li>
 		<li><a href="/YouConnect-SocialNetworking/forumView">Forum</a></li>
-		<li><a href="#">Documents</a></li>
+		<li><a href="/YouConnect-SocialNetworking/docView">Documents</a></li>
       </ul>
       <form class="navbar-form navbar-right" role="search" method="get" action="/YouConnect-SocialNetworking/results.html">
         <div class="form-group input-group">
@@ -109,7 +109,7 @@
 										<img src="resources/images/forums.jpg" alt="" />
 										<h3>Forums</h3>
 									</a>
-									<a href="resources/images/fulls/04.jpg">
+									<a href="/YouConnect-SocialNetworking/docView">
 										<img src="resources/images/documents.jpg" alt="" />
 										<h3>Documents</h3>
 									</a>

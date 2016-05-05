@@ -44,10 +44,10 @@ public class GroupController {
 	public ModelAndView createGroup(@ModelAttribute("groupDetails") GroupDetails groupDetails, HttpSession ses) {
 		
 		groupDetails.setGroupOwner((String)ses.getAttribute("emailId"));
-		
+		ses.setAttribute("friendsIdDoc", groupDetails.getParticipants());
 		GroupDAO ad = new GroupDAO();
 		int id =ad.insertGroupDetails(groupDetails);
-		groupDetails.setGroupId(id);
+		groupDetails.setGroupId(String.valueOf(id));
 		ad.insertGroupDescDetails(groupDetails);
 		
 		//ModelAndView model = new ModelAndView("TempGroupView");
@@ -58,11 +58,11 @@ public class GroupController {
 	@RequestMapping(value="/viewGroup", method = RequestMethod.GET)
 	public ModelAndView getViewGroupsPage(HttpSession ses, HttpServletRequest req,GroupDetails groupDetails) {
 		String title = null;
-		int groupId =0;
+		String groupId =null;
 		String owner = null;
 		String groupType=null;
 		HashSet<String> mem = new HashSet<String>();
-		groupDetails.setGroupId((Integer.parseInt(req.getParameter("groupId"))));
+		groupDetails.setGroupId(((req.getParameter("groupId"))));
 		groupDetails.setGroupOwner((req.getParameter("ownerEmailId")));
 		GroupDAO grp = new GroupDAO();
 		MemberDAO member = new MemberDAO();
@@ -76,6 +76,7 @@ public class GroupController {
 		for(GroupDetails gd: al){
 			mem.add(gd.getParticipants());
 		}
+		ses.setAttribute("friendsIdDoc", mem.toString());
 		ModelAndView model = new ModelAndView("GroupContent");
 		model.addObject("al", al);
 		model.addObject("title", title);
@@ -93,7 +94,7 @@ public class GroupController {
 	@RequestMapping(value="/postContent", method = RequestMethod.POST)
 	public ModelAndView getPostContent(@ModelAttribute("groupDetails") GroupDetails groupDetails,HttpSession ses, HttpServletRequest req) {
 		String title = null;
-		int groupId =0;
+		String groupId =null;
 		String owner = null;
 		String groupType=null;
 		
@@ -113,6 +114,7 @@ public class GroupController {
 		for(GroupDetails gd: al){
 			mem.add(gd.getParticipants());
 		}
+		ses.setAttribute("friendsIdDoc", mem.toString());
 		ModelAndView model = new ModelAndView("GroupContent");
 		model.addObject("al", al);
 		model.addObject("mem", mem);
@@ -131,11 +133,11 @@ public class GroupController {
 	@RequestMapping(value="/updateMembers", method = RequestMethod.GET)
 	public ModelAndView getupdateMembers(HttpSession ses, HttpServletRequest req,GroupDetails groupDetails) {
 		String title = null;
-		int groupId =0;
+		String groupId =null;
 		String owner = null;
 		String groupType=null;
 		HashSet<String> mem = new HashSet<String>();
-		groupDetails.setGroupId((Integer.parseInt(req.getParameter("groupId"))));
+		groupDetails.setGroupId((req.getParameter("groupId")));
 		groupDetails.setGroupOwner((req.getParameter("groupOwner")));
 		groupDetails.setTitle((req.getParameter("title")));
 		groupDetails.setGroupType((req.getParameter("groupType")));
@@ -151,6 +153,7 @@ public class GroupController {
 		for(GroupDetails gd: al){
 			mem.add(gd.getParticipants());
 		}
+		ses.setAttribute("friendsIdDoc", mem.toString());
 		ModelAndView model = new ModelAndView("GroupContent");
 		model.addObject("al", al);
 		model.addObject("title", title);
@@ -171,10 +174,10 @@ public class GroupController {
 		
 		
 		ModelAndView model = new ModelAndView("GroupUpload");
-		model.addObject("groupId", req.getAttribute("groupId"));
-		model.addObject("groupOwner", req.getAttribute("groupOwner"));
-		model.addObject("groupType", req.getAttribute("groupType"));
-		model.addObject("title", req.getAttribute("title"));
+		model.addObject("groupId", req.getParameter("groupId"));
+		model.addObject("groupOwner", req.getParameter("groupOwner"));
+		model.addObject("groupType", req.getParameter("groupType"));
+		model.addObject("title", req.getParameter("title"));
 		return model;
 		
 		
