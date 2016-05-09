@@ -10,8 +10,12 @@
 		<link rel="stylesheet" href="resources/css/main.css" />
 		
 		<script>
+		window.onunload = refreshParent;
+	    function refreshParent() {
+	        window.opener.location.reload();
+	    }
 		function loadImage(){
-			window.opener.Reload();
+			
 			self.close();
 		}
 		</script>

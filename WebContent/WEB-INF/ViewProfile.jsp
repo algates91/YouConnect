@@ -14,9 +14,11 @@
   </style>
 		<link rel="stylesheet" href="resources/css/main.css" />
 		<script>
-		function Reload() {
-            window.location.reload();
-         }
+		window.onunload = refreshParent;
+	    function refreshParent() {
+	        window.opener.location.reload();
+	    }
+		
 
 		</script>
 	</head>

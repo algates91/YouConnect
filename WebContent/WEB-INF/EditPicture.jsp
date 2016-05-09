@@ -11,6 +11,7 @@
 		
 		<script>
 		function loadImage(){
+			self.close();
 			document.getElementById("close").value ="jusClose";
 			self.close();
 		}
@@ -26,7 +27,7 @@
 		<form name="imageSelect" method ="post" action="/YouConnect-SocialNetworking/doUpload.html" enctype="multipart/form-data" >
 		    <input type='file' name='file'><br><br>
 		    <input type='submit' name='upload_btn' value='upload'   >
-		    <input type='submit' value='Close' onclick="loadImage()">
+		    <input type='button' value='Close' onclick="loadImage()">
 		    <input type="hidden" name="close">
 		</form>
 					</div>
